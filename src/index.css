@@ -1,0 +1,23 @@
+@import "@syncfusion/ej2-base/styles/tailwind.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    *::-webkit-scrollbar-track {
+        background: #142020;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background: #0a5353;
+    }
+
+    *::-webkit-scrollbar {
+
+        width: 0.20rem;
+        height: 0.20rem;
+        border: 1px solid #d5d5d5;
+    }
+}
