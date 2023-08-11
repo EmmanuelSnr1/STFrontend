@@ -16,7 +16,6 @@
     "react-number-format": "^4.9.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
-    "react-stockcharts": "^0.7.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

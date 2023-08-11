@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 
 const baseUrl = 'https://cloud.iexapis.com/stable/'
-const token = 'pk_d0153e3e12ee4a9f83ae3a1c3c38a8cd';
+const token = 'pk_eb688d810a8440bfb8470012290c8f79';
 
 export default function useFetch(url, queryParams = '') {
     const [data, setData] = useState(null)
