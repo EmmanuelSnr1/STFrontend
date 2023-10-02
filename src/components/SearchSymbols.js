@@ -2,24 +2,8 @@ import { useEffect, useState } from "react";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { searchSymbols } from '../services/stocksService'; // adjust the path if needed
 
-const baseUrl = 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/sc/search/';
-const headers = {
-    'X-RapidAPI-Key': 'd75e476636msha08ea07fdb84f37p11a6ccjsnf6345c38ebe8',
-    'X-RapidAPI-Host': 'yahoo-finance15.p.rapidapi.com'
-};
-
-export async function searchSymbols(fragment) {
-    const response = await fetch(baseUrl + fragment, {
-        method: 'GET',
-        headers: headers
-    });
-    if (response.ok) {
-        const json = await response.json();
-        return json.body;
-    }
-    throw response;
-}
 
 export function SearchSymbols() {
     const [symbol, setSymbol] = useState(null);

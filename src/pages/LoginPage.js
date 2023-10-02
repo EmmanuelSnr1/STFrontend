@@ -7,7 +7,7 @@ export default function LoginPage() {
                 <div className='pt-16 container mx-auto px-4 lg:px-8'>
                    <div className="flex flex-col items-center min-w-full grid grid-cols-4 gap-x-16">
                        <div className='text-3xl lg:text-4xl mb-4 text-center col-span-4 font-bold '>Login to Your Account</div>
-                       <div className="text-2xl font-light mb-8 text-center col-span-4 text-neutral/90">Monitor and Trade from over 250,000 Stock Portfolios</div>
+                       <div className="text-2xl font-light mb-8 text-center col-span-4 text-neutral/90">Monitor and Trade from over 250,000 Stocks</div>
                        <div className="space-y-4 lg:px-16 col-span-4 lg:col-span-2">
                            <div className="">
                                <label>Email Address</label>

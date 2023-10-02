@@ -6,7 +6,7 @@ export default function RegisterPage() {
             <div className='space-y-20 pb-16 container mx-auto grid grid-4'>
                 <div className='pt-8 col-span-4 lg:col-span-1 max-w-screen-sm  px-4 lg:px-8 space-y-8'>
                    <div className="space-y-6">
-                       <div className="uppercase text-2xl font-light">Start for Free</div>
+                       <div className="uppercase text-2xl font-light">Sign up for Free</div>
                        <div className='text-3xl lg:text-4xl font-bold '>Create a new Account</div>
                        <div className="text-xl">Already a Member? <a className="text-lighter-teal" href="/">Login</a></div>
                    </div>
