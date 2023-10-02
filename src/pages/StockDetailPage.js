@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import useFetch from "../services/useFetch";
+import useFetchStock from "../services/useFetchStock";
 import {MdError} from "react-icons/md";
 import {
     AccumulationDistributionIndicator,
@@ -39,10 +39,12 @@ import {useEffect} from "react";
 export default function StockDetailPage() {
 
     const {symbol} = useParams()
-    const {data: company, error: companyError, loading: companyLoading} = useFetch('/stock/' + symbol + '/company')
-    const {data: logo, error: logoError, loading: logoLoading} = useFetch('/stock/' + symbol + '/logo')
-    const {data: series, error: seriesError, loading: seriesLoading} = useFetch('/stock/' + symbol + '/chart')
+    const {data: company, error: companyError, loading: companyLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/profile?symbol=' + symbol);
+    const {data: logo, error: logoError, loading: logoLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/logo?symbol=' + symbol);
+    const {data: series, error: seriesError, loading: seriesLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/time_series?symbol=' + symbol + '&interval=1day&outputsize=30&format=json');
     let navigate = useNavigate();
+
+    console.log(company);
 
     useEffect(() => {
         // navigate("/stock/" + symbol + "/overview")
@@ -103,7 +105,7 @@ export default function StockDetailPage() {
                             <img src={logo.url} alt="Stock symbol"/>
                         </div>
                         <div>
-                            <div className="font-bold text-white text-lg">{company.companyName}</div>
+                            <div className="font-bold text-white text-lg">{company.name}</div>
                             <div className="text-neutral/90 text-sm">{company.exchange} ({company.symbol})</div>
                         </div>
                     </div>
@@ -168,9 +170,9 @@ export default function StockDetailPage() {
     }
 
 
-    console.log('company', company)
-    console.log('logo', logo)
-    console.log('historical', series)
+    // console.log('company', company)
+    // console.log('logo', logo)
+    // console.log('historical', series)
 
     if (companyError || logoError) throw  companyError;
 
