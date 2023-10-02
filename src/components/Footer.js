@@ -9,7 +9,7 @@ export function Footer() {
 
                     <span className="ml-3 text-xl">StocXTune</span>
                 </a>
-                <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">Copyright © 2022
+                <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">Copyright © 2023, Net Nimble Labs
                 </p>
                 <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
               <button className="btn btn-ghost btn-circle">

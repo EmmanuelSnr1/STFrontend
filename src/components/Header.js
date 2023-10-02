@@ -18,9 +18,9 @@ export function Header() {
                     className="hidden lg:block flex space-x-6 flex-wrap  items-center justify-center text-base md:mr-auto md:ml-4 md:py-1 md:pl-4">
                     <SiteLink display="Home" path="/"/>
                     <SiteLink display="My Portfolio" path="/my-portfolio"/>
-                    {/*<SiteLink path='/analytics' display="Analytics"/>*/}
-                    {/*<SiteLink path='/insights' display="Insights"/>*/}
-                    {/*<SiteLink path='/news' display="News on Investing"/>*/}
+                    <SiteLink path='/analytics' display="Analytics"/>
+                    <SiteLink path='/insights' display="Insights"/>
+                    <SiteLink path='/news' display="News on Investing"/>
                 </nav>
 
 
