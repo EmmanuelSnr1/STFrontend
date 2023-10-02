@@ -10,6 +10,8 @@ import AnalyticsPage from "./pages/AnalyticsPage";
 import InsightsPage from "./pages/InsightsPage";
 import NewsPage from "./pages/NewsPage";
 import PageNotFound from "./pages/PageNotFound";
+// import React from 'react';
+
 
 function App() {
 

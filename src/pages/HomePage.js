@@ -8,7 +8,7 @@ export default function HomePage() {
         <section className="pt-32 bg-[url('../public/assets/bg1.png')] min-h-screen">
             <div className='flex flex-col items-center space-y-20 pb-16'>
                 <div className='pt-16'>
-                    <div className='text-3xl lg:text-4xl font-bold text-center'>StocXTune - Your #1 Stock Management
+                    <div className='text-3xl lg:text-4xl font-bold text-center'>StocXTune - Your #1 Stock Management and research tool
                         Tool
                     </div>
                     <div className='mt-4 text-xl lg:text-2xl font-light text-center'>Track and manage your trade
@@ -19,9 +19,10 @@ export default function HomePage() {
 
                 <SearchSymbols/>
 
-                <TrendingPortfolios title="Top Trending Gainers" url="/stock/market/list/gainers"/>
-                <TrendingPortfolios title="Top Trending Losers" url="/stock/market/list/losers"/>
-                <TrendingPortfolios title="Most Active Portfolios" url="/stock/market/list/mostactive"/>
+                <TrendingPortfolios title="Top Trending Gainers" url="https://yahoo-finance15.p.rapidapi.com/api/yahoo/co/collections/day_gainers?start=0"/>
+                <TrendingPortfolios title="Top Trending Losers" url="https://yahoo-finance15.p.rapidapi.com/api/yahoo/co/collections/day_losers?start=0"/>
+                <TrendingPortfolios title="Most Active Stocks" url="https://yahoo-finance15.p.rapidapi.com/api/yahoo/co/collections/most_actives?start=0"/>
+
 
 
             </div>
