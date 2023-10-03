@@ -1,4 +1,6 @@
-[965064_CS3010 FYP.docx](https://github.com/EmmanuelSnr1/StocXTune-Research-App-/files/11994195/965064_CS3010.FYP.docx)# StocXTune Project Overview
+[965064_CS3010 FYP.docx](https://github.com/EmmanuelSnr1/StocXTune-Research-App-/files/11994195/965064_CS3010.FYP.docx)
+
+# StocXTune Project Overview
 The main objective of this project is to develop a prototype of an easy-to-use stock market research system that 
 can be used by retail investors to research the stock market. Alongside academic aims for this project, it aims to 
 undergo a long-term business undertaking that will inform the design and implementation of this project.
