@@ -16,7 +16,7 @@ function useFetch(url) {
                     }
                 });
                 let result = await response.json();
-                console.log(result)
+                // console.log(result)
                 setData(result);
                 setLoading(false);
             } catch (err) {

@@ -1,5 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import useFetchStock from "../services/useFetchStock";
+import useFetch from "../services/useFetch";
 import {MdError} from "react-icons/md";
 import {
     AccumulationDistributionIndicator,
@@ -42,9 +43,16 @@ export default function StockDetailPage() {
     const {data: company, error: companyError, loading: companyLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/profile?symbol=' + symbol);
     const {data: logo, error: logoError, loading: logoLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/logo?symbol=' + symbol);
     const {data: series, error: seriesError, loading: seriesLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/time_series?symbol=' + symbol + '&interval=1day&outputsize=30&format=json');
+    const {data: companyProfile, error: companyProfileError, loading: companyProfileLoading} = useFetch('https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/' + symbol + '/asset-profile');
+     
     let navigate = useNavigate();
+    //this style is called Conditional Rendering
+    // const address = companyProfile && companyProfile.assetProfile ? companyProfile.assetProfile.address1 : null;
 
-    console.log(company);
+    // this style is called optional Chaining. 
+    const companyData = companyProfile?.assetProfile;
+
+    // console.log(companyData);
 
     useEffect(() => {
         // navigate("/stock/" + symbol + "/overview")
@@ -164,7 +172,7 @@ export default function StockDetailPage() {
                     </StockChartComponent>
                 </div>
 
-                <StockDetailSection symbol={symbol} company={company}/>
+                <StockDetailSection symbol={symbol} company={companyData}/>
             </div>
         )
     }
