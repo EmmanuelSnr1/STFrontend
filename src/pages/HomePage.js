@@ -11,17 +11,15 @@ export default function HomePage() {
                     <div className='text-3xl lg:text-4xl font-bold text-center'>StocXTune - Your #1 Stock Management and research tool
                         Tool
                     </div>
-                    <div className='mt-4 text-xl lg:text-2xl font-light text-center'>Track and manage your trade
-                        portfolios on
-                        StocXTune
+                    <div className='mt-4 text-xl lg:text-2xl font-light text-center'>Track and manage your stocks on StocXtune
                     </div>
                 </div>
 
                 <SearchSymbols/>
 
-                <TrendingPortfolios title="Top Trending Gainers" url="https://yahoo-finance15.p.rapidapi.com/api/yahoo/co/collections/day_gainers?start=0"/>
-                <TrendingPortfolios title="Top Trending Losers" url="https://yahoo-finance15.p.rapidapi.com/api/yahoo/co/collections/day_losers?start=0"/>
-                <TrendingPortfolios title="Most Active Stocks" url="https://yahoo-finance15.p.rapidapi.com/api/yahoo/co/collections/most_actives?start=0"/>
+                <TrendingPortfolios title="Top Trending Gainers" url="co/collections/day_gainers?start=0"/>
+                <TrendingPortfolios title="Top Trending Losers" url="co/collections/day_losers?start=0"/>
+                <TrendingPortfolios title="Most Active Stocks" url="co/collections/most_actives?start=0"/>
 
 
 

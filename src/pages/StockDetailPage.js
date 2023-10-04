@@ -43,7 +43,7 @@ export default function StockDetailPage() {
     const {data: company, error: companyError, loading: companyLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/profile?symbol=' + symbol);
     const {data: logo, error: logoError, loading: logoLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/logo?symbol=' + symbol);
     const {data: series, error: seriesError, loading: seriesLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/time_series?symbol=' + symbol + '&interval=1day&outputsize=30&format=json');
-    const {data: companyProfile, error: companyProfileError, loading: companyProfileLoading} = useFetch('/' + symbol + '/asset-profile');
+    const {data: companyProfile, error: companyProfileError, loading: companyProfileLoading} = useFetchCompanyProfile('/' + symbol );
     const {data: institutionOwnership, error: institutionOwnershipError, loading: institutionOwnershipLoading} = useFetchInstitutionOwnership(symbol);
     const {data: secFilings, error: secFilingsError, loading: secFilingsLoading} = useFetchSECFilings(symbol);
     const {data: insiderHoldings, error: insiderHoldingsError, loading: insiderHoldingsLoading} = useFetchInsiderHoldings(symbol);
@@ -57,10 +57,10 @@ export default function StockDetailPage() {
     const companyData = companyProfile?.assetProfile;
     const institutionOwnershipData = institutionOwnership?.institutionOwnership;
     const secFilingsData = secFilings?.secFilings;
-    const insiderHoldingsData = insiderHoldings?.holders;
+    const insiderHoldingsData = insiderHoldings?.insiderHolders;
     const keyFinancialsData = keyFinancials;
 
-    console.log("The data", secFilingsData);
+    console.log("The data", companyData);
 
     useEffect(() => {
         // navigate("/stock/" + symbol + "/overview")

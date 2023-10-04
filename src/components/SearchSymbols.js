@@ -46,7 +46,7 @@ export function SearchSymbols() {
             <div className='flex items-center justify-center'>
                 <input onKeyUp={(e) => setSymbol(e.target.value)}
                        className=' mr-2 h-16 uppercase text-lg bg-lighter-teal/20 input w-72 lg:w-96 placeholder:capitalize placeholder:text-neutral/50'
-                       placeholder='Search Stock Portfolios' type="search" aria-autocomplete="list"/>
+                       placeholder='Search By Ticker' type="search" aria-autocomplete="list"/>
                 <button onClick={() => search()} className="btn btn-primary btn-lg">
                     <span className="hidden md:block">Search</span>
                     <FaSearch className="md:hidden"/>

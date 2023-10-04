@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const BASE_URL = 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote';
+const BASE_URL = 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/';
 
 // Base custom hook for fetching data
 function useFetch(endpoint) {
@@ -34,24 +34,24 @@ function useFetch(endpoint) {
 
 // Custom hook for Company Profile Data
 function useFetchCompanyProfile(symbol) {
-    return useFetch(`/${symbol}/asset-profile`);
+    return useFetch(`qu/quote${symbol}/asset-profile`);
 }
 
 // Custom hook for Institution Ownership
 function useFetchInstitutionOwnership(symbol) {
-    return useFetch(`/${symbol}/institution-ownership`);
+    return useFetch(`qu/quote/${symbol}/institution-ownership`);
 }
 
 function useFetchSECFilings(symbol) {
-    return useFetch(`/${symbol}/sec-filings`);
+    return useFetch(`qu/quote/${symbol}/sec-filings`);
 }
 
 function useFetchInsiderHoldings(symbol) {
-    return useFetch(`/${symbol}/insider-holders`);
+    return useFetch(`qu/quote/${symbol}/insider-holders`);
 }
 
 function useFetchKeyFinancials(symbol) {
-    return useFetch(`/${symbol}/financial-data`);
+    return useFetch(`qu/quote/${symbol}/financial-data`);
 }
 
 
