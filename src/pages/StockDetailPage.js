@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import useFetchStock from "../services/useFetchStock";
-import useFetch from "../services/useFetch";
+import {useFetch, useFetchCompanyProfile, useFetchInsiderHoldings, useFetchInstitutionOwnership, useFetchKeyFinancials, useFetchSECFilings} from "../services/useFetch";
 import {MdError} from "react-icons/md";
 import {
     AccumulationDistributionIndicator,
@@ -43,7 +43,11 @@ export default function StockDetailPage() {
     const {data: company, error: companyError, loading: companyLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/profile?symbol=' + symbol);
     const {data: logo, error: logoError, loading: logoLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/logo?symbol=' + symbol);
     const {data: series, error: seriesError, loading: seriesLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/time_series?symbol=' + symbol + '&interval=1day&outputsize=30&format=json');
-    const {data: companyProfile, error: companyProfileError, loading: companyProfileLoading} = useFetch('https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/' + symbol + '/asset-profile');
+    const {data: companyProfile, error: companyProfileError, loading: companyProfileLoading} = useFetch('/' + symbol + '/asset-profile');
+    const {data: institutionOwnership, error: institutionOwnershipError, loading: institutionOwnershipLoading} = useFetchInstitutionOwnership(symbol);
+    const {data: secFilings, error: secFilingsError, loading: secFilingsLoading} = useFetchSECFilings(symbol);
+    const {data: insiderHoldings, error: insiderHoldingsError, loading: insiderHoldingsLoading} = useFetchInsiderHoldings(symbol);
+    const {data: keyFinancials, error: keyFinancialsError, loading: keyFinancialsLoading} = useFetchKeyFinancials(symbol);
      
     let navigate = useNavigate();
     //this style is called Conditional Rendering
@@ -51,8 +55,12 @@ export default function StockDetailPage() {
 
     // this style is called optional Chaining. 
     const companyData = companyProfile?.assetProfile;
+    const institutionOwnershipData = institutionOwnership?.institutionOwnership;
+    const secFilingsData = secFilings?.secFilings;
+    const insiderHoldingsData = insiderHoldings?.holders;
+    const keyFinancialsData = keyFinancials;
 
-    // console.log(companyData);
+    console.log("The data", secFilingsData);
 
     useEffect(() => {
         // navigate("/stock/" + symbol + "/overview")
@@ -172,7 +180,14 @@ export default function StockDetailPage() {
                     </StockChartComponent>
                 </div>
 
-                <StockDetailSection symbol={symbol} company={companyData}/>
+                <StockDetailSection 
+                    symbol={symbol}
+                    company={companyData}
+                    institutionOwnership={institutionOwnershipData}
+                    secFilings={secFilingsData}
+                    insiderHoldings={insiderHoldingsData}
+                    keyFinancials={keyFinancialsData}
+                />
             </div>
         )
     }
