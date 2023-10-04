@@ -1,6 +1,5 @@
 import {Tab} from "./Tab";
 import {useState} from "react";
-import useFetch from "../services/useFetch";
 
 
 function CompanyOverview({company, id, activeTab}) {
@@ -51,13 +50,49 @@ function CompanyOverview({company, id, activeTab}) {
     return <></>
 }
 
-function AnalystRating({company, id, activeTab}) {
+
+function formatNumber(num) {
+    if (num >= 1e9) {
+        return (num / 1e9).toFixed(1) + 'B';
+    }
+    if (num >= 1e6) {
+        return (num / 1e6).toFixed(1) + 'M';
+    }
+    if (num >= 1e3) {
+        return (num / 1e3).toFixed(1) + 'K';
+    }
+    return num.toString();
+}
+function InstitutionOwnership({holders, id, activeTab}) {
+    const ownershipList = holders?.ownershipList;
+
     if (id === activeTab) {
         return (
             <div>
-                <h1 className="text-xl font-bold mb-4 text-neutral">Analyst Rating</h1>
+                <h1 className="text-xl font-bold mb-4 text-neutral">Institutional Ownership</h1>
+                <table className="min-w-full">
+                    <thead>
+                        <tr>
+                            <th className="border px-4 py-2">Organization</th>
+                            <th className="border px-4 py-2">Position</th>
+                            <th className="border px-4 py-2">Value</th>
+                            <th className="border px-4 py-2">Percentage Change</th>
+                            <th className="border px-4 py-2">Percentage Held</th>
 
-
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {ownershipList?.map((holder, index) => (
+                            <tr key={index}>
+                                <td className="border px-4 py-2">{holder.organization}</td>
+                                <td className="border px-4 py-2">{formatNumber(holder.position?.raw || 0)}</td>
+                                <td className="border px-4 py-2">{formatNumber(holder.value?.raw || 0)}</td>
+                                <td className="border px-4 py-2">{holder.pctChange?.fmt}</td>
+                                <td className="border px-4 py-2">{holder.pctHeld?.fmt}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         )
     }
@@ -65,13 +100,43 @@ function AnalystRating({company, id, activeTab}) {
 }
 
 
-function SECFillings({company, id, activeTab}) {
+
+
+
+function SECFillings({filings, id, activeTab}) {
+    const filingsList = filings?.filings;
+
     if (id === activeTab) {
         return (
             <div>
-                <h1 className="text-xl font-bold mb-4 text-neutral">SEC Fillings</h1>
+                <h1 className="text-xl font-bold mb-4 text-neutral">Institutional Ownership</h1>
+                <table className="min-w-full">
+                    <thead>
+                        <tr>
+                            <th className="border px-4 py-2">Date</th>
+                            <th className="border px-4 py-2">Type</th>
+                            <th className="border px-4 py-2">Title</th>
+                            <th className="border px-4 py-2">Public information on the Filings</th>
 
-
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filingsList?.map((filings, index) => (
+                            <tr key={index}>
+                                <td className="border px-4 py-2">{filings.date}</td>
+                                <td className="border px-4 py-2">{filings.type}</td>
+                                <td className="border px-4 py-2">{filings.title}</td>
+                                <td className="border px-4 py-2">
+                                    {filings.exhibits?.map(exhibit => (
+                                        <div key={exhibit.url}>
+                                            <a href={exhibit.url} target="_blank" rel="noopener noreferrer">{exhibit.url}</a>
+                                        </div>
+                                    ))}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         )
     }
@@ -136,12 +201,18 @@ function ComparableCompanies({company, id, activeTab}) {
 
 
 
-export function StockDetailSection({symbol, company}) {
+export function StockDetailSection({
+    symbol,
+    company,
+    institutionOwnership,
+    secFilings,
+    insiderHoldings,
+    keyFinancials}){
     const [activeTab, setActiveTab] = useState('overview')
 
     const tabs = [
         {id: 'overview', display: "Overview", content: CompanyOverview},
-        {id: 'analyst-ratings', display: "Analyst Ratings"},
+        {id: 'institutional-holdings', display: "Institutional Ownership", content: InstitutionOwnership},
         {id: 'sec-fillings', display: "SEC Fillings"},
         {id: 'executives', display: "Executives"},
         {id: 'insider-holdings', display: "Insider Holdings"},
@@ -165,8 +236,8 @@ export function StockDetailSection({symbol, company}) {
             <div className="divider"/>
             <div className="min-h-16">
                 <CompanyOverview company={company} id="overview" activeTab={activeTab}/>
-                <AnalystRating company={company} id="analyst-ratings" activeTab={activeTab}/>
-                <SECFillings company={company} id="sec-fillings" activeTab={activeTab}/>
+                <InstitutionOwnership holders={institutionOwnership} id="institutional-holdings" activeTab={activeTab}/>
+                <SECFillings filings={secFilings} id="sec-fillings" activeTab={activeTab}/>
                 <Executives company={company} id="executives" activeTab={activeTab}/>
                 <InsiderHoldings company={company} id="insider-holdings" activeTab={activeTab}/>
                 <ComparableCompanies company={company} id="comparable-companies" activeTab={activeTab}/>

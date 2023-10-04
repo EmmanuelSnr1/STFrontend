@@ -1,6 +1,6 @@
 import {FaChevronLeft, FaChevronRight} from "react-icons/fa";
 import NumberFormat from 'react-number-format';
-import useFetch from "../services/useFetch";
+import {useFetch} from "../services/useFetch";
 import {useNavigate} from 'react-router-dom';
 // import React from 'react';
 
