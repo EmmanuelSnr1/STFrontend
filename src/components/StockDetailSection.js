@@ -173,13 +173,37 @@ function Executives({company, id, activeTab}) {
     return <></>
 }
 
-function InsiderHoldings({company, id, activeTab}) {
+function InsiderHoldings({insiders, id, activeTab}) {
+    const insidersList = insiders?.holders;
+    console.log(insidersList);
+
     if (id === activeTab) {
         return (
             <div>
-                <h1 className="text-xl font-bold mb-4 text-neutral">Insider Holdings</h1>
+                <h1 className="text-xl font-bold mb-4 text-neutral">Insider Activities</h1>
+                <table className="min-w-full">
+                    <thead>
+                        <tr>
+                            <th className="border px-4 py-2">Name</th>
+                            <th className="border px-4 py-2">Relation to company</th>
+                            <th className="border px-4 py-2">Transaction Description</th>
+                            <th className="border px-4 py-2">Value</th>
+                            <th className="border px-4 py-2">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {insidersList?.map((insiders, index) => (
+                            <tr key={index}>
+                                <td className="border px-4 py-2">{insiders?.name}</td>
+                                <td className="border px-4 py-2">{insiders?.relation}</td>
+                                <td className="border px-4 py-2">{insiders?.transactionDescription}</td>
+                                <td className="border px-4 py-2">{formatNumber(insiders?.positionDirect?.raw || 0)}</td>
+                                <td className="border px-4 py-2">{insiders.positionDirectDate?.fmt}</td>
 
-
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         )
     }
@@ -239,7 +263,7 @@ export function StockDetailSection({
                 <InstitutionOwnership holders={institutionOwnership} id="institutional-holdings" activeTab={activeTab}/>
                 <SECFillings filings={secFilings} id="sec-fillings" activeTab={activeTab}/>
                 <Executives company={company} id="executives" activeTab={activeTab}/>
-                <InsiderHoldings company={company} id="insider-holdings" activeTab={activeTab}/>
+                <InsiderHoldings insiders={insiderHoldings} id="insider-holdings" activeTab={activeTab}/>
                 <ComparableCompanies company={company} id="comparable-companies" activeTab={activeTab}/>
             </div>
 
