@@ -1,4 +1,47 @@
+import React, { useState } from 'react';
+import useSignUp from '../hooks/useSignUp';
+import { useNavigate } from 'react-router-dom';
+
+
+
 export default function RegisterPage() {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [accountNumber, setAccountNumber] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("");
+    const { signUp, error, isLoading } = useSignUp();
+
+
+    const navigate = useNavigate();
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        if (password !== confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
+    
+        const userData = {
+            name: `${firstName} ${lastName}`,
+            email,
+            password,
+            accountNumber,
+            mobileNumber,
+            roles: "[USER,ADMIN]"
+        };
+        
+        try {
+            await signUp(userData);
+            navigate('/my-portfolio');
+        } catch (error) {
+            console.error("Error during registration:", error);
+        }
+    }
 
 
     return (
@@ -10,43 +53,73 @@ export default function RegisterPage() {
                        <div className='text-3xl lg:text-4xl font-bold '>Create a new Account</div>
                        <div className="text-xl">Already a Member? <a className="text-lighter-teal" href="/">Login</a></div>
                    </div>
-
-                    <div className="grid grid-cols-2 gap-8">
-                       <div>
-                           <label>First Name</label>
-                           <input
-                               className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
-                               placeholder='First Name' type="text" aria-autocomplete="list"/>
-                       </div>
+                   <form onSubmit={handleSubmit}>
+                        <div className="grid grid-cols-2 gap-8">
                         <div>
-                            <label>Last Name</label>
+                            <label>First Name</label>
                             <input
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
                                 className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
-                                placeholder='Last Name' type="text" aria-autocomplete="list"/>
+                                placeholder='First Name' type="text" aria-autocomplete="list"/>
                         </div>
-                        <div className="col-span-2">
-                            <label>Email Address</label>
-                            <input
-                                className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
-                                placeholder='Email Address' type="email" aria-autocomplete="list"/>
+                            <div>
+                                <label>Last Name</label>
+                                <input
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                    className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
+                                    placeholder='Last Name' type="text" aria-autocomplete="list"/>
+                            </div>
+                            <div className="col-span-2">
+                                <label>Mobile Number</label>
+                                <input
+                                    value={mobileNumber}
+                                    onChange={(e) => setMobileNumber(e.target.value)}
+                                    className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
+                                    placeholder='Mobile Number' type="tel" aria-autocomplete="list"/>
+                            </div>
+                            <div className="col-span-2">
+                                <label>Account Number</label>
+                                <input
+                                    value={accountNumber}
+                                    onChange={(e) => setAccountNumber(e.target.value)}
+                                    className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
+                                    placeholder='Account Number' type="number" aria-autocomplete="list"/>
+                            </div>
+                            <div className="col-span-2">
+                                <label>Email Address</label>
+                                <input
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
+                                    placeholder='Email Address' type="email" aria-autocomplete="list"/>
+                            </div>
+                            <div className="col-span-2">
+                                <label>Password</label>
+                                <input
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
+                                    placeholder='Enter password' type="password" aria-autocomplete="list"/>
+                            </div>
+                            <div className="col-span-2">
+                                <label>Re-enter Password</label>
+                                <input
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
+                                    placeholder='Confirm your password' type="password" aria-autocomplete="list"/>
+                            </div>
+                            <button disabled = {isLoading} type="submit" className="btn btn-primary col-span-2 btn-lg">
+                            {isLoading ? "Registering..." : "Create an Account"}
+                            </button>
+                            {error && <div className='error'> {error}</div>}
                         </div>
-                        <div className="col-span-2">
-                            <label>Password</label>
-                            <input
-                                className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
-                                placeholder='Enter password' type="password" aria-autocomplete="list"/>
-                        </div>
-                        <div className="col-span-2">
-                            <label>Re-enter Password</label>
-                            <input
-                                className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
-                                placeholder='Confirm your password' type="password" aria-autocomplete="list"/>
-                        </div>
-                        <button className="btn btn-primary col-span-2 btn-lg">Create an Account</button>
+                    </form>
                     </div>
-                </div>
-                <div className="col-span-3"></div>
-
+                    <div className="col-span-3"></div>
+                   
             </div>
         </section>
     )

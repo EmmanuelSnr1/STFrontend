@@ -4,12 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {registerLicense} from '@syncfusion/ej2-base';
+import { AuthContextProvider } from "./auth/AuthContext";
+
 
 registerLicense('ORg4AjUWIQA/Gnt2VVhhQlFaclhJXGFWfVJpTGpQdk5xdV9DaVZUTWY/P1ZhSXxRdkFjX39ccnJRTmJeU0E=')
 
 ReactDOM.render(
     <React.StrictMode>
-        <App/>
+        <AuthContextProvider>
+            <App/>
+        </AuthContextProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );
