@@ -10,6 +10,8 @@ import AnalyticsPage from "./pages/AnalyticsPage";
 import InsightsPage from "./pages/InsightsPage";
 import NewsPage from "./pages/NewsPage";
 import PageNotFound from "./pages/PageNotFound";
+import { AuthContextProvider } from "./auth/AuthContext";
+
 // import React from 'react';
 
 
@@ -17,6 +19,7 @@ function App() {
 
     return (
         <>
+        <AuthContextProvider>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<MainLayout/>}>
@@ -32,6 +35,7 @@ function App() {
                     </Route>
                 </Routes>
             </BrowserRouter>
+        </AuthContextProvider>
         </>
     );
 }

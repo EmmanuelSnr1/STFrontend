@@ -1,9 +1,15 @@
 import {FaBars, FaUserCircle} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import {SiteLink} from "./SiteLink";
+import { useAuth } from "../auth/AuthContext";
+// import { useLogout } from '../hooks/useLogout';
+
 
 
 export function Header() {
+
+    const { user, dispatch, logout } = useAuth();
+
     return (
         <header className="fixed w-full z-50 h-24 text-gray-600 body-font bg-black/80 drop-shadow-lg">
             <div className="container flex justify-between flex-row flex-wrap items-center p-5 mx-auto">
@@ -25,13 +31,25 @@ export function Header() {
 
 
                 <div className="flex">
-                    <Link to="/register">
-                        <button className='mr-2 text-white btn bg-primary border-primary hidden lg:block'>Register
-                        </button>
-                    </Link>
-                    <Link to="/login">
-                        <button className='btn btn-primary  btn-outline hidden lg:block'>Sign In</button>
-                    </Link>
+                    {user ? (
+                        // If the user is logged in
+                        <>
+                        <Link to="/login">
+                            <span className="text-white mr-4">{user.email}</span>
+                            <button onClick={logout} className="btn btn-primary btn-outline">Logout</button>
+                            </Link>
+                        </>
+                    ) : (
+                        // If the user is not logged in
+                        <>
+                            <Link to="/register">
+                                <button className='mr-2 text-white btn bg-primary border-primary hidden lg:block'>Register</button>
+                            </Link>
+                            <Link to="/login">
+                                <button className='btn btn-primary btn-outline hidden lg:block'>Sign In</button>
+                            </Link>
+                        </>
+                    )}
 
                     <div className="dropdown dropdown-end lg:hidden">
                         <label tabIndex="0"
