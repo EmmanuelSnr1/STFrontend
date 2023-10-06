@@ -11,13 +11,19 @@ import InsightsPage from "./pages/InsightsPage";
 import NewsPage from "./pages/NewsPage";
 import PageNotFound from "./pages/PageNotFound";
 import { AuthContextProvider } from "./auth/AuthContext";
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+
 
 // import React from 'react';
 
 
 function App() {
 
+
+    const queryClient = new QueryClient();
     return (
+        <QueryClientProvider client={queryClient}>
         <>
         <AuthContextProvider>
             <BrowserRouter>
@@ -37,6 +43,7 @@ function App() {
             </BrowserRouter>
         </AuthContextProvider>
         </>
+        </QueryClientProvider>
     );
 }
 

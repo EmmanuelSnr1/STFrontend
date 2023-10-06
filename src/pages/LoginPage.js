@@ -23,23 +23,49 @@ export default function LoginPage() {
             const response = await axios.post('http://localhost:8090/api/auth/signIn', {
                 username: email,
                 password: password
+                
+            },
+            {
+                withCredentials: true
             });
-            
-            // Store the JWT token and user details
-            localStorage.setItem('token', response.data.token);
-            localStorage.setItem('user', JSON.stringify(response.data));
 
-            // Update the auth context
-            dispatch({ type: 'LOGIN', payload: response.data });
-            console.log(response) 
+            console.log("the response", response );
+    
+            // Assuming the server's response structure is:
+            // {
+            //   token: "YOUR_JWT_TOKEN",
+            //   user: {
+            //     ...userDetails
+            //   }
+            // }
+    
+            // Extract token and user data from the response
+            const token = response.data.token;
 
+            console.log("the token", token );
+
+            const user = response.data;
+
+            console.log("the response body", user );
+
+    
+            // Store the token and user data in local storage
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user));
+    
+            // Update the auth context with the user data returned by the server
+            dispatch({ type: 'LOGIN', payload: user });
+    
+            console.log(response);
+    
             navigate('/my-portfolio');
-
+    
         } catch (err) {
             setError('Invalid email or password. Please try again.');
             setShowModal(true); // Show the modal when there's an error
         }
     };
+    
 
 
     return (
