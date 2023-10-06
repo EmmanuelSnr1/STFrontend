@@ -15,7 +15,7 @@ function useWatchlistAPI() {
         const response = await axios.get('http://localhost:8090/api/watchlist', {
             withCredentials: true
         });        
-        console.log('The Data ', response.data);
+        console.log('The Data ', response.data);    
         return response.data;        
     };
             
