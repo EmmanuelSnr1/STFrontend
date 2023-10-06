@@ -8,7 +8,7 @@ import { useAuth } from "../auth/AuthContext";
 
 export function Header() {
 
-    const { user, dispatch, logout } = useAuth();
+    const { user, logout } = useAuth();
 
     return (
         <header className="fixed w-full z-50 h-24 text-gray-600 body-font bg-black/80 drop-shadow-lg">
@@ -23,10 +23,14 @@ export function Header() {
                 <nav
                     className="hidden lg:block flex space-x-6 flex-wrap  items-center justify-center text-base md:mr-auto md:ml-4 md:py-1 md:pl-4">
                     <SiteLink display="Home" path="/"/>
-                    <SiteLink display="My Portfolio" path="/my-portfolio"/>
-                    <SiteLink path='/analytics' display="Analytics"/>
-                    <SiteLink path='/insights' display="Insights"/>
-                    <SiteLink path='/news' display="News on Investing"/>
+                    {user && (
+                    <>
+                        <SiteLink display="My Portfolio" path="/my-portfolio"/>
+                        <SiteLink path='/analytics' display="Analytics"/>
+                        <SiteLink path='/insights' display="Insights"/>
+                    </>
+                    )}
+                <SiteLink path='/news' display="News on Investing"/>
                 </nav>
 
 

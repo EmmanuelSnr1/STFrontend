@@ -34,6 +34,7 @@ export const AuthContextProvider = ({ children }) => {
         user: initialUser
     });
     
+    // console.log("The local storage",localStorage);
 
     const logout = () => {
         // Remove user data from local storage
@@ -42,7 +43,7 @@ export const AuthContextProvider = ({ children }) => {
         dispatch({ type: 'LOGOUT' });
     };
 
-    console.log('AuthContext State:', state);
+    // console.log('AuthContext State:', state);
 
     return (
         <AuthContext.Provider value={{ ...state, dispatch, logout }}>

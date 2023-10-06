@@ -24,17 +24,23 @@ export const useSignUp = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 }
+            },
+            {
+                withCredentials: true
             });
 
-            
-            
+            // Extract token and user data from the response
+            const token = response.data.token;
+            const user = response.data;
 
-            // Update the auth context
-            dispatch({ type: 'LOGIN', payload: userData });
+            // Store the token and user data in local storage
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user));
 
-            // Save the user to local storage
-            localStorage.setItem('user', JSON.stringify(userData));
-            console.log(response)
+            // Update the auth context with the user data returned by the server
+            dispatch({ type: 'LOGIN', payload: user });
+
+            console.log(response);
 
         } catch (err) {
             console.error('Error registering user:', err.message);
