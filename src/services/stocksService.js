@@ -29,25 +29,17 @@ Provides Services for Single stocks
 //     throw response;
 // }
 
-const yahooBaseUrl = 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/sc/search/';
-const yahooHeaders = {
-    'X-RapidAPI-Key': 'd75e476636msha08ea07fdb84f37p11a6ccjsnf6345c38ebe8',
-    'X-RapidAPI-Host': 'yahoo-finance15.p.rapidapi.com'
-};
+const backendBaseUrl = 'http://localhost:8090/api/symbols/search/';
 
-/*
-Returns an array of symbols up to the top 10 matches.
-*/
 export async function searchSymbols(fragment) {
-    const response = await fetch(yahooBaseUrl + fragment, {
-        method: 'GET',
-        headers: yahooHeaders
+    const response = await fetch(backendBaseUrl + fragment, {
+        method: 'GET'
     });
 
     if (response.ok) {
-        const json = await response.json();
-        return json.body; // Assuming the Yahoo API returns the data directly. You might need to adjust this to match the actual structure of the response.
+        return await response.json();
     }
     throw response;
 }
+
 
