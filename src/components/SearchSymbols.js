@@ -2,16 +2,24 @@ import { useEffect, useState } from "react";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-import { searchSymbols } from '../services/stocksService'; // adjust the path if needed
+import { searchSymbols } from '../services/stocksService'; 
+import useStockAPI from '../services/useStockAPI'; 
+
 
 
 export function SearchSymbols() {
     const [symbol, setSymbol] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [suggestions, setSuggestions] = useState([]);
-
     const history = useNavigate();
+
+    // Call the useStockAPI hook at the top level
+    const { data, error, isLoading } = useStockAPI(`/search/${symbol}`);
+
+    useEffect(() => {
+        if (data && data.body) {
+            setSuggestions(data.body.slice(0, 10));
+        }
+    }, [data]);
 
     function search() {
         setSymbol(symbol);
@@ -20,26 +28,6 @@ export function SearchSymbols() {
     function navigate(symbol) {
         history('/stock/' + symbol);
     }
-
-    useEffect(() => {
-        async function searchCompanyWithSymbol(s) {
-            if (!s) {
-                setSuggestions([]);
-                return;
-            }
-            try {
-                const response = await searchSymbols(s);
-                setSuggestions(response.slice(0, 10));
-            } catch (e) {
-                setError(e);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        searchCompanyWithSymbol(symbol);
-
-    }, [symbol]);
 
     return (
         <div>
@@ -54,7 +42,7 @@ export function SearchSymbols() {
             </div>
 
             <div className="py-4 px-4 space-x-2 space-y-2 max-w-xl">
-                {symbol && loading && (<div>Loading suggestions...</div>)}
+                {symbol && isLoading && (<div>Loading suggestions...</div>)}
                 {suggestions.length > 0 && (
                     <div className="py-2 flex items-center"><HiOutlineLightBulb/> Top matching results</div>
                 )}
@@ -65,8 +53,15 @@ export function SearchSymbols() {
             </div>
 
             {error && (
-                <div>Some error occurred: {error.status}</div>
+                <div>
+                    {data && !data.body.length ? (
+                        <div>No results found for "{symbol}".</div>
+                    ) : (
+                        <div>Some error occurred: {error.message}</div>
+                    )}
+                </div>
             )}
         </div>
     );
 }
+    

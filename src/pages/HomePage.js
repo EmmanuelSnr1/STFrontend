@@ -17,9 +17,9 @@ export default function HomePage() {
 
                 <SearchSymbols/>
 
-                <TrendingPortfolios title="Top Trending Gainers" url="co/collections/day_gainers?start=0"/>
-                <TrendingPortfolios title="Top Trending Losers" url="co/collections/day_losers?start=0"/>
-                <TrendingPortfolios title="Most Active Stocks" url="co/collections/most_actives?start=0"/>
+                <TrendingPortfolios title="Top Trending Gainers" url="/market-actives"/>
+                <TrendingPortfolios title="Top Trending Losers" url="/day-losers"/>
+                <TrendingPortfolios title="Most Active Stocks" url="/day-gainers"/>
 
 
 

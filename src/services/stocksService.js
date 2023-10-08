@@ -31,7 +31,7 @@ Provides Services for Single stocks
 
 const backendBaseUrl = 'http://localhost:8090/api/symbols/search/';
 
-export async function searchSymbols(fragment) {
+export async function   searchSymbols(fragment) {
     const response = await fetch(backendBaseUrl + fragment, {
         method: 'GET'
     });

@@ -14,7 +14,7 @@ function useFetch(endpoint) {
                 let response = await fetch(`${BASE_URL}${endpoint}`, {
                     method: "GET",
                     headers: {
-                        "X-RapidAPI-Key": "d75e476636msha08ea07fdb84f37p11a6ccjsnf6345c38ebe8",
+                        "X-RapidAPI-Key": "03e1e97663msh35f5cc76e6b5ce5p11427fjsn835e3d542999",
                         "X-RapidAPI-Host": "yahoo-finance15.p.rapidapi.com"
                     }
                 });

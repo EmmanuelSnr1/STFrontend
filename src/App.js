@@ -12,10 +12,8 @@ import NewsPage from "./pages/NewsPage";
 import PageNotFound from "./pages/PageNotFound";
 import { AuthContextProvider } from "./auth/AuthContext";
 import { QueryClient, QueryClientProvider } from 'react-query';
+import ProtectedRoute from '../src/components/ProtectedRoute'; // Adjust the path
 
-
-
-// import React from 'react';
 
 
 function App() {

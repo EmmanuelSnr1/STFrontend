@@ -1,6 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
 import useFetchStock from "../services/useFetchStock";
-import {useFetch, useFetchCompanyProfile, useFetchInsiderHoldings, useFetchInstitutionOwnership, useFetchKeyFinancials, useFetchSECFilings} from "../services/useFetch";
 import {MdError} from "react-icons/md";
 import {
     AccumulationDistributionIndicator,
@@ -35,19 +34,22 @@ import {
 import PageNotFound from "./PageNotFound";
 import {StockDetailSection} from "../components/StockDetailSection";
 import {useEffect} from "react";
+import useStockAPI from '../services/useStockAPI'; 
+
 
 
 export default function StockDetailPage() {
 
     const {symbol} = useParams()
-    const {data: company, error: companyError, loading: companyLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/profile?symbol=' + symbol);
-    const {data: logo, error: logoError, loading: logoLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/logo?symbol=' + symbol);
-    const {data: series, error: seriesError, loading: seriesLoading} = useFetchStock('https://twelve-data1.p.rapidapi.com/time_series?symbol=' + symbol + '&interval=1day&outputsize=30&format=json');
-    const {data: companyProfile, error: companyProfileError, loading: companyProfileLoading} = useFetchCompanyProfile('/' + symbol );
-    const {data: institutionOwnership, error: institutionOwnershipError, loading: institutionOwnershipLoading} = useFetchInstitutionOwnership(symbol);
-    const {data: secFilings, error: secFilingsError, loading: secFilingsLoading} = useFetchSECFilings(symbol);
-    const {data: insiderHoldings, error: insiderHoldingsError, loading: insiderHoldingsLoading} = useFetchInsiderHoldings(symbol);
-    const {data: keyFinancials, error: keyFinancialsError, loading: keyFinancialsLoading} = useFetchKeyFinancials(symbol);
+    const {data: company, error: companyError, loading: companyLoading} = useStockAPI('/' + symbol + "/fundamentals");
+    const {data: logo, error: logoError, loading: logoLoading} = useStockAPI('/' + symbol + "/logo");
+    const { data: series, error: seriesError, isLoading: seriesLoading } = useStockAPI("/" + symbol + "/time-series/1wk");
+    const {data: companyProfile, error: companyProfileError, loading: companyProfileLoading} = useStockAPI("/" + symbol + "/profile");
+    const {data: institutionOwnership, error: institutionOwnershipError, loading: institutionOwnershipLoading} = useStockAPI("/" + symbol + "/institution-ownership");
+    const {data: secFilings, error: secFilingsError, loading: secFilingsLoading} = useStockAPI("/" + symbol + "/sec-filings");
+    const {data: insiderHoldings, error: insiderHoldingsError, loading: insiderHoldingsLoading} = useStockAPI("/" + symbol + "/insider-holders");
+    const {data: keyFinancials, error: keyFinancialsError, loading: keyFinancialsLoading} = useStockAPI("/" + symbol + "/financial-data");
+    const { data: keyInfo , error: keyInfoError , isLoading: keyInfoLoading } = useStockAPI("/"+ symbol + "/key-stats");
      
     let navigate = useNavigate();
     //this style is called Conditional Rendering
@@ -60,7 +62,21 @@ export default function StockDetailPage() {
     const insiderHoldingsData = insiderHoldings?.insiderHolders;
     const keyFinancialsData = keyFinancials;
 
-    console.log("The data", companyData);
+    console.log("The company", company);
+
+    const seriesData = series && series.items 
+        ? Object.values(series.items).map(item => ({
+            date: new Date(item?.date_utc * 1000), // Convert UNIX timestamp to JavaScript Date
+            open: item?.open,
+            high: item?.high,
+            low: item?.low,
+            close: item?.close,
+            volume: item?.volume,
+            adjclose: item?.adjclose
+        }))
+        : [];
+
+    
 
     useEffect(() => {
         // navigate("/stock/" + symbol + "/overview")
@@ -69,14 +85,19 @@ export default function StockDetailPage() {
 
     const primaryXAxis = {
         valueType: 'DateTime',
-        majorGridLines: {width: 0}, majorTickLines: {color: 'transparent'},
+        labelFormat: 'dd/MM/yyyy',
+        majorGridLines: {width: 0},
+        majorTickLines: {color: 'transparent'},
     };
+    
 
     const primaryYAxis = {
-        labelFormat: 'n0',
-        lineStyle: {width: 0}, rangePadding: 'None',
+        labelFormat: 'n2',
+        lineStyle: {width: 0},
+        rangePadding: 'None',
         majorTickLines: {width: 0}
-    }
+    };
+    
 
     const crosshair = {enable: true};
     const tooltip = {enable: true};
@@ -126,13 +147,29 @@ export default function StockDetailPage() {
                         </div>
                     </div>
 
-                    <div className="col-span-2 lg:col-span-9 grid grid-cols-3 lg:grid-cols-6 gap-4">
+                    {/* <div className="col-span-2 lg:col-span-9 grid grid-cols-3 lg:grid-cols-6 gap-4">
                         <div>{renderStatWidget('Market Cap', '$2.46T')}</div>
                         <div>{renderStatWidget('P/E Ratio', '$2.46T')}</div>
                         <div>{renderStatWidget('Revenue', '$365.82B')}</div>
                         <div>{renderStatWidget('EPS', '$5.62')}</div>
                         <div>{renderStatWidget('Dividend Yield', '0.58%')}</div>
                         <div>{renderStatWidget('Beta', '1.21')}</div>
+                    </div> */}
+                    <div className="col-span-2 lg:col-span-9 grid grid-cols-3 lg:grid-cols-6 gap-4">
+                        {keyInfoLoading && <div>Loading...</div>}
+                        {keyInfoError && <div>Error: {keyInfoError.message}</div>}
+                        {keyInfo && (
+                            <>
+                                <div>{renderStatWidget('Market Cap', keyInfo?.defaultKeyStatistics?.enterpriseValue?.fmt)}</div>
+                                <div>{renderStatWidget('P/E Ratio', keyInfo?.defaultKeyStatistics?.forwardPE?.fmt)}</div>
+                                <div>{renderStatWidget('Revenue', keyInfo?.defaultKeyStatistics?.netIncomeToCommon?.fmt)}</div>
+                                <div>{renderStatWidget('EPS', keyInfo?.defaultKeyStatistics?.trailingEps?.fmt)}</div>
+                                {/* <div>{renderStatWidget('Dividend Yield', `${keyInfo?.defaultKeyStatistics?.lastDividendValue.raw * 100}%`)}</div> */}
+                                <div>{renderStatWidget('Dividend Yield', keyInfo?.defaultKeyStatistics?.lastDividendValue?.raw * 100 + "%")}</div>
+
+                                <div>{renderStatWidget('Beta', keyInfo?.defaultKeyStatistics?.beta?.fmt)}</div>
+                            </>
+                        )}
                     </div>
                 </div>
                 <div className="mt-8 mb-16 w-full bg-white">
@@ -144,7 +181,7 @@ export default function StockDetailPage() {
                                          indicatorType={[]}
                                          trendlineType={[]}
                                          height='500'
-                                         title={company.companyName + ' Stock Prices'}>
+                                         title={series?.meta?.symbol + ' Stock Prices'}>
                         <Inject
                             services={[
                                 CandleSeries,
@@ -174,7 +211,7 @@ export default function StockDetailPage() {
                                 // StockLegend,
                             ]}/>
                         <StockChartSeriesCollectionDirective>
-                            <StockChartSeriesDirective dataSource={series} type='Candle' name={company.symbol}>
+                            <StockChartSeriesDirective dataSource={seriesData} type='Candle' name={company.symbol}>
                             </StockChartSeriesDirective>
                         </StockChartSeriesCollectionDirective>
                     </StockChartComponent>

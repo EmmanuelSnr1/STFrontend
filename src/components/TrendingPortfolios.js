@@ -2,6 +2,8 @@ import {FaChevronLeft, FaChevronRight} from "react-icons/fa";
 import NumberFormat from 'react-number-format';
 import {useFetch} from "../services/useFetch";
 import {useNavigate} from 'react-router-dom';
+import useStockAPI from '../services/useStockAPI'; // Make sure to adjust the path to your hook
+
 // import React from 'react';
 
 
@@ -73,7 +75,7 @@ function renderTableRow(data, navigate) {
 export function TrendingPortfolios({title, url}) {
     const navigate = useNavigate();
 
-    const {data: response, error, loading} = useFetch(url);
+    const {data: response, error, loading} = useStockAPI(url); // Replaced useFetch with useStockAPI
 
     // Accessing the quotes key from the response
     const gainersList = response?.quotes || [];
@@ -83,6 +85,8 @@ export function TrendingPortfolios({title, url}) {
     if (loading) {
         return <progress className="progress w-56"/>
     }
+
+    
 
     return (
         <div className='px-8 space-y-4 mb-16 pb-8 rounded-xl shadow-lg max-w-full overflow-x-scroll y-4 w bg-gradient-to-b from-darker-teal to-black'>
