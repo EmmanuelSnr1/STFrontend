@@ -31,8 +31,9 @@ export function YourWatchlist() {
   if (isError) return <div>Error loading watchlist</div>;
 
   function renderWatchlistRow(stock, navigate) {
+    //navigate to the stock's detail page.
     function navigateToDetails() {
-      navigate("/stock/" + stock.id); // Assuming you want to navigate using the stock's id
+      navigate("/stock/" + stock.symbol);
     }
 
     return (
