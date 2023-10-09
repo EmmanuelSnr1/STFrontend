@@ -41,4 +41,7 @@ https://xd.adobe.com/view/2e1646c4-2b80-4a4a-8e9b-a1702a16bb21-7b45/?fullscreen
 [965064_CS3010 FYP.pdf](https://github.com/EmmanuelSnr1/StocXTune-Research-App-/files/11994196/965064_CS3010.FYP.pdf)
 
 
+# Useful Links for Development 
+https://tailwindui.com/components/application-ui/elements/ 
+
 

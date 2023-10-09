@@ -1,111 +1,143 @@
-import {WatchListEmpty} from "../components/WatchListEmpty";
+import { WatchListEmpty } from "../components/WatchListEmpty";
+import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { RxDropdownMenu } from "react-icons/rx";
-import {AiOutlineStock} from "react-icons/ai";
+import { AiOutlineStock } from "react-icons/ai";
 import useWatchlistAPI from "../services/useWatchlistAPI";
-
-
-
+import { useNavigate } from "react-router-dom";
+import NumberFormat from "react-number-format";
 
 export function YourWatchlist() {
-    const { watchlist, isLoading, isError } = useWatchlistAPI();
+  const { watchlist, isLoading, isError } = useWatchlistAPI();
+  const [selectedWatchlistId, setSelectedWatchlistId] = useState(""); // Initialize to an empty string
+  const [dropdownVisible, setDropdownVisible] = useState(false); // State to manage dropdown visibility
+  const navigate = useNavigate();
 
-    if (isLoading) return <div>Loading...</div>;
-    if (isError) return <div>Error loading watchlist</div>;
+  const handleWatchlistChange = (event) => {
+    if (!event || !event.target) return; // Add this null check
+    setSelectedWatchlistId(Number(event.target.value));
+    setDropdownVisible(false); // Hide the dropdown once a selection is made
+  };
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const selectedWatchlist = watchlist
+    ? watchlist.find((wl) => wl.id === selectedWatchlistId)
+    : null;
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading watchlist</div>;
+
+  function renderWatchlistRow(stock, navigate) {
+    function navigateToDetails() {
+      navigate("/stock/" + stock.id); // Assuming you want to navigate using the stock's id
+    }
 
     return (
-        <div className="md:col-span-2">
-            <div className='flex flex-col space-y-8'>
-                <input
-                    className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
-                    placeholder='Search Stock Portfolios' type="search" aria-autocomplete="list"/>
-                <div
-                    className='px-8 space-y-4 mb-16 pb-8 rounded-xl shadow-lg shadow-accent/20 max-w-full h-96 overflow-x-hidden y-4 bg-gradient-to-b from-darker-teal to-black'>
-                    <div className='flex justify-between pt-8'>
-                        <div className='font-bold text-base'>Your WatchList</div>
-                        <div className='space-x-2'>
-                            <button className='btn btn-circle btn-sm btn-primary'>
-                                <FaPlus/>
-                            </button>
-                            <button className='btn btn-circle btn-sm btn-primary'>
-                                <RxDropdownMenu/>
-                            </button>
-                        </div>
-                    </div>
-
-                    {watchlist && watchlist.length > 0 ? (
-                        <table className="table table-fixed w-auto max-w-screen-lg bg-transparent select-none text-xs"> {/* Adjusted width and font size here */}
-                        <thead>
-                                <tr className=''>
-                                    <th className='bg-transparent capitalize w-0.5/3 text-neutral/80'>Company</th>
-                                    <th className='bg-transparent capitalize w-1/3 text-neutral/80'>%Gain/loss</th>
-                                    <th className='bg-transparent capitalize w-1/3 text-neutral/80'>Price</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {watchlist.map(item => (
-                                    <tr key={item.id}>
-                                        <td>{item.name || "Unnamed Company"}</td>
-                                        {/* Placeholder columns for %gain/loss and Price. You can replace these with actual data from your watchlist items. */}
-                                        <td>{/* %gain/loss data here */}</td>
-                                        <td>{/* Price data here */}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    ) : (
-                        <WatchListEmpty />
-                    )}
-                </div>
-            </div>
-        </div>
+      <tr
+        onClick={navigateToDetails}
+        className="hover:bg-primary cursor-pointer"
+        key={stock.id}
+      >
+        <td className="bg-transparent text-accent">
+          {stock.name || "Unnamed Company"}
+        </td>
+        <td
+          className={
+            stock.percentageChange > 0
+              ? "bg-transparent text-green"
+              : "bg-transparent text-pink-red"
+          }
+        >
+          {stock.percentageChange.toFixed(2)}
+        </td>
+        <td className="bg-transparent text-info">
+          <NumberFormat
+            value={stock.currentPrice}
+            displayType={"text"}
+            thousandSeparator={true}
+            prefix={"$"}
+          />
+        </td>
+        {/* ... other columns ... */}
+      </tr>
     );
+  }
+
+  return (
+    <div className="md:col-span-2">
+      <div className="flex flex-col space-y-8">
+        <input
+          className=" mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50"
+          placeholder="Search Stock Portfolios"
+          type="search"
+          aria-autocomplete="list"
+        />
+        <div className="px-8 space-y-4 mb-16 pb-8 rounded-xl shadow-lg shadow-accent/20 max-w-full h-96 overflow-x-hidden y-4 bg-gradient-to-b from-darker-teal to-black">
+          <div className="flex justify-between pt-8">
+            <div className="font-bold text-base">Your WatchList</div>
+            <div className="space-x-2">
+              <button
+                className="btn btn-circle btn-sm btn-primary"
+                onClick={toggleDropdown}
+              >
+                <RxDropdownMenu />
+              </button>
+              {/* Dropdown for selecting a watchlist */}
+              {dropdownVisible && (
+                <div className="absolute mt-2 rounded-md shadow-lg bg-teal">
+                  <select
+                    value={selectedWatchlistId}
+                    onChange={handleWatchlistChange}
+                  >
+                    <option value="" disabled>
+                      Select a Watchlist
+                    </option>
+                    {watchlist.map((wl) => (
+                      <option key={wl.id} value={wl.id}>
+                        {wl.name || "Unnamed Watchlist"}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+            </div>
+            <div className="space-x-2">
+              <button className="btn btn-circle btn-sm btn-primary">
+                <FaPlus />
+              </button>
+            </div>
+          </div>
+          {selectedWatchlist &&
+          selectedWatchlist.stocks &&
+          selectedWatchlist.stocks.length > 0 ? (
+            <table className="table table-fixed w-auto max-w-screen-lg bg-transparent select-none text-xs">
+              <thead>
+                <tr className="">
+                  <th className="bg-transparent capitalize w-0.5/3 text-neutral/80">
+                    Company
+                  </th>
+                  <th className="bg-transparent capitalize w-1/3 text-neutral/80">
+                    %Gain/loss
+                  </th>
+                  <th className="bg-transparent capitalize w-1/3 text-neutral/80">
+                    Price
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedWatchlist.stocks.map((stock) =>
+                  renderWatchlistRow(stock, navigate)
+                )}
+              </tbody>
+            </table>
+          ) : (
+            <WatchListEmpty />
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
-
-
-
-// export function YourWatchlist() {
-//         return (
-//             <div className="md:col-span-2">
-//                 <div className='flex flex-col space-y-8'>
-//                     <input
-//                         className=' mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50'
-//                         placeholder='Search Stock Portfolios' type="search" aria-autocomplete="list"/>
-//                     <div
-//                         className='px-8 space-y-4 mb-16 pb-8 rounded-xl shadow-lg shadow-accent/20 max-w-full h-96 overflow-x-hidden y-4 bg-gradient-to-b from-darker-teal to-black'>
-//                         <div className='flex justify-between pt-8'>
-//                             <div className='font-bold text-base'>Your WatchList</div>
-//                             <div className='space-x-2'>
-//                                 <button className='btn btn-circle btn-sm btn-primary'>
-//                                     <FaPlus/>
-//                                 </button>
-//                                 <button className='btn btn-circle btn-sm btn-primary'>
-//                                     <RxDropdownMenu/>
-//                                 </button>
-//                             </div>
-//                         </div>
-
-//                         {/* <WatchListEmpty/> */}
-
-//                         <table className="table table-fixed min-w-full max-w-screen-lg bg-transparent select-none ">
-//                             <thead>
-//                             <tr className=''>
-//                                 <th className='bg-transparent capitalize w-32 text-neutral/80'>Company</th>
-//                                 <th className='bg-transparent capitalize text-neutral/80'>Latest Price</th>
-//                                 <th className='bg-transparent capitalize text-neutral/80'>Change</th>
-//                                 <th className='bg-transparent capitalize text-neutral/80'>7 Day Chart</th>
-//                             </tr>
-//                             </thead>
-//                             <tbody>
-//                             <div className=" flex flex-col justify-center items-center">
-//                                <AiOutlineStock className="text-gray/90" size={120}/>
-//                                <div className="text-xl mb-2 text-gray/90">Your portfolio is Empty</div>
-//                                <div className=" text-gray/50">A chart showing how your portfolio is performing will be shown here</div>
-//                             </div>
-//                             </tbody>
-//                         </table>
-//                     </div>
-//                 </div>
-//             </div>
-//         );
-//     }
