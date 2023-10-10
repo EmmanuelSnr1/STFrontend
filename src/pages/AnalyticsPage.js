@@ -1,5 +1,8 @@
 import { HoldingsTotal } from "../components/HoldingsTotal";
 import { YourWatchlist } from "../components/YourWatchlist";
+import { AnalyticsCanvas } from "../components/AnalyticsCanvas";
+import { WatchlistInfo } from "../components/WatchlistInfo";
+import { Watchlist } from "../components/Watchlist";
 
 export default function AnalyticsPage() {
   return (
@@ -7,8 +10,11 @@ export default function AnalyticsPage() {
       <div className="flex flex-col py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-6 gap-12">
-            <HoldingsTotal />
-            <YourWatchlist />
+            <AnalyticsCanvas />
+            <Watchlist spanSize="md:col-span-2" />
+            <Watchlist spanSize="md:col-span-3" />
+            <Watchlist spanSize="md:col-span-2" />
+            <Watchlist spanSize="md:col-span-1" />
           </div>
         </div>
       </div>

@@ -1,6 +1,9 @@
 import React from "react";
 import { YourHoldingsEmpty } from "../components/YourHoldingsEmpty";
 
+// A sample Workspace for implementing Funcionality in the App.
+// Change Function name and File name to suit the kind of thing you wanna implement
+
 export function Canvas({
   title,
   spansize,
