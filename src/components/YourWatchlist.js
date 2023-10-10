@@ -6,6 +6,7 @@ import { AiOutlineStock } from "react-icons/ai";
 import useWatchlistAPI from "../services/useWatchlistAPI";
 import { useNavigate } from "react-router-dom";
 import NumberFormat from "react-number-format";
+import MiniSearchBar from "./MiniSearchBar";
 
 export function YourWatchlist() {
   const { watchlist, isLoading, isError } = useWatchlistAPI();
@@ -70,12 +71,7 @@ export function YourWatchlist() {
   return (
     <div className="md:col-span-2">
       <div className="flex flex-col space-y-8">
-        <input
-          className=" mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50"
-          placeholder="Search Stock Portfolios"
-          type="search"
-          aria-autocomplete="list"
-        />
+        <MiniSearchBar />
         <div className="px-8 space-y-4 mb-16 pb-8 rounded-xl shadow-lg shadow-accent/20 max-w-full h-96 overflow-x-hidden y-4 bg-gradient-to-b from-darker-teal to-black">
           <div className="flex justify-between pt-8">
             <div className="font-bold text-base">Your WatchList</div>
