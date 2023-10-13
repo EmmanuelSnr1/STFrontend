@@ -12,7 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.19.5",
     "axios": "^1.5.1",
-    "daisyui": "^2.13.3",
+    "daisyui": "3.9.2",
     "downshift": "^6.1.7",
     "eslint": "^8.50.0",
     "eslint-plugin-react": "^7.33.2",

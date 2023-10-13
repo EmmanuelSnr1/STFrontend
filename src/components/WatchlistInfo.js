@@ -4,19 +4,36 @@ import { FaPlus } from "react-icons/fa";
 import useWatchlistAPI from "../services/useWatchlistAPI";
 import { useNavigate } from "react-router-dom";
 import NumberFormat from "react-number-format";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import AddStocksModal from "./AddStocksModal";
 
 export function WatchlistInfo() {
   const { watchlist, isLoading, isError } = useWatchlistAPI("my-watchlist");
   const [selectedWatchlistId, setSelectedWatchlistId] = useState(""); // Initialize to an empty string
   const [dropdownVisible, setDropdownVisible] = useState(false); // State to manage dropdown visibility
   const navigate = useNavigate();
+  const [isModalOpen, setModalOpen] = useState(false);
 
-  const handleWatchlistChange = (event) => {
-    if (!event || !event.target) return; // Add this null check
-    setSelectedWatchlistId(Number(event.target.value));
-    setDropdownVisible(false); // Hide the dropdown once a selection is made
+  const handleWatchlistChange = (watchlistId) => {
+    if (!watchlistId) return;
+    setSelectedWatchlistId(watchlistId);
+    // Store the selected watchlist ID in localStorage
+    localStorage.setItem("selectedWatchlistId", watchlistId.toString());
+
+    // Close the dropdown
+    const dropdownDialog = document.getElementById("your_dropdown_dialog_id");
+    if (dropdownDialog) {
+      dropdownDialog.removeAttribute("open");
+    }
   };
+
+  useEffect(() => {
+    // Get the selected watchlist ID from localStorage when the component mounts
+    const storedWatchlistId = localStorage.getItem("selectedWatchlistId");
+    if (storedWatchlistId) {
+      setSelectedWatchlistId(Number(storedWatchlistId));
+    }
+  }, []);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -69,39 +86,57 @@ export function WatchlistInfo() {
   return (
     <div className="px-8 space-y-4 mb-16 pb-8 rounded-xl shadow-lg shadow-accent/20 max-w-full h-96 overflow-x-hidden y-4 bg-gradient-to-b from-darker-teal to-black">
       <div className="flex justify-between pt-8">
-        <div className="font-bold text-base">Your WatchList</div>
-        <div className="space-x-2">
-          <button
-            className="btn btn-circle btn-sm btn-primary"
-            onClick={toggleDropdown}
-          >
+        <div className="font-bold text-base">
+          {selectedWatchlist ? selectedWatchlist.name : "Your WatchList"}
+        </div>
+        <div className="space-x-2 dropdown dropdown-bottom dropdown-end">
+          <button tabIndex={0} className="btn btn-circle btn-sm btn-primary">
             <RxDropdownMenu />
           </button>
-          {/* Dropdown for selecting a watchlist */}
-          {dropdownVisible && (
-            <div className="absolute mt-2 rounded-md shadow-lg bg-teal">
-              <select
-                value={selectedWatchlistId}
-                onChange={handleWatchlistChange}
-              >
-                <option value="" disabled>
-                  Select a Watchlist
-                </option>
-                {watchlist.map((wl) => (
-                  <option key={wl.id} value={wl.id}>
-                    {wl.name || "Unnamed Watchlist"}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a disabled>Select a Watchlist</a>
+            </li>
+            {watchlist.map((wl) => (
+              <li key={wl.id} onClick={() => handleWatchlistChange(wl.id)}>
+                <a>{wl.name || "Unnamed Watchlist"}</a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="space-x-2">
-          <button className="btn btn-circle btn-sm btn-primary">
+
+        <div className="space-x-2 dropdown dropdown-bottom dropdown-end">
+          <button tabIndex={0} className="btn btn-circle btn-sm btn-primary">
             <FaPlus />
           </button>
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a onClick={() => setModalOpen(true)}>Add Symbols</a>
+            </li>
+            <li>
+              <a>Edit Symbols</a>
+            </li>
+            <li>
+              <a>Rename List</a>
+            </li>
+            <li>
+              <a>Sort by...</a>
+            </li>
+          </ul>
         </div>
       </div>
+      <AddStocksModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        watchlistId={selectedWatchlist?.id}
+      />
+
       {selectedWatchlist &&
       selectedWatchlist.stocks &&
       selectedWatchlist.stocks.length > 0 ? (
