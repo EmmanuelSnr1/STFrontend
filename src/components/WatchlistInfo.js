@@ -7,7 +7,7 @@ import NumberFormat from "react-number-format";
 import { useState } from "react";
 
 export function WatchlistInfo() {
-  const { watchlist, isLoading, isError } = useWatchlistAPI();
+  const { watchlist, isLoading, isError } = useWatchlistAPI("my-watchlist");
   const [selectedWatchlistId, setSelectedWatchlistId] = useState(""); // Initialize to an empty string
   const [dropdownVisible, setDropdownVisible] = useState(false); // State to manage dropdown visibility
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ export function WatchlistInfo() {
               : "bg-transparent text-pink-red"
           }
         >
-          {stock.percentageChange.toFixed(2)}
+          {stock.percentageChange ? stock.percentageChange.toFixed(2) : "N/A"}
         </td>
         <td className="bg-transparent text-info">
           <NumberFormat

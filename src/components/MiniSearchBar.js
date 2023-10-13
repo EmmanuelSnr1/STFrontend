@@ -32,7 +32,7 @@ function MiniSearchBar() {
         <input
           onKeyUp={(e) => setSymbol(e.target.value)}
           className=" mr-2 h-14 uppercase text-md bg-lighter-teal/20 input w-full placeholder:capitalize placeholder:text-neutral/50"
-          placeholder="Search Stock Portfolios"
+          placeholder="Search Stock Symbols"
           type="search"
           aria-autocomplete="list"
         />
