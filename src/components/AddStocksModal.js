@@ -33,11 +33,21 @@ export default function AddStocksModal({ isOpen, onClose, watchlistId }) {
     } catch (error) {
       console.error("Error saving symbols:", error);
     }
+    console.log("The payload ", payload);
+
+    console.log("Selected Symbols:", selectedSymbols);
+    console.log("Suggestions:", suggestions);
   };
 
   return (
     <dialog ref={dialogRef} className="modal">
       <div className="modal-box">
+        <button
+          onClick={onClose}
+          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        >
+          ✕
+        </button>
         <h3 className="font-bold text-lg">Add Symbols</h3>
         <br></br>
         <AddableMiniSearchBar
