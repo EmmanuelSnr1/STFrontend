@@ -66,7 +66,7 @@ export default function EditStocksModal({
             <span>{stock?.name}</span>
             <button
               onClick={() => handleToggleDelete(stock.id)}
-              className="btn btn-accent btn-sm"
+              className="btn text-white bg-stocxtunered btn-sm"
             >
               {stocksToDelete.includes(stock.id) ? "Undelete" : "Delete"}
             </button>

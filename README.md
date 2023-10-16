@@ -47,7 +47,11 @@ https://xd.adobe.com/view/2e1646c4-2b80-4a4a-8e9b-a1702a16bb21-7b45/?fullscreen
 
 # Useful Links for Development
 
+TailWind CSS
 https://tailwindui.com/components/application-ui/elements/
 
 DaisyUI
 https://daisyui.com/components/
+
+React Icons
+https://react-icons.github.io/react-icons/icons?name=fa

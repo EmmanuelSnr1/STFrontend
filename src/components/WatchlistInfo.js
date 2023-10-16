@@ -71,7 +71,7 @@ export function WatchlistInfo() {
               : "bg-transparent text-pink-red"
           }
         >
-          {stock.percentageChange ? stock.percentageChange.toFixed(2) : "N/A"}
+          {stock.percentageChange ? stock.percentageChange.toFixed(2) : "N/A"} %
         </td>
         <td className="bg-transparent text-info">
           <NumberFormat
@@ -100,14 +100,14 @@ export function WatchlistInfo() {
             tabIndex={0}
             className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
-              <a disabled>Select a Watchlist</a>
-            </li>
             {watchlist.map((wl) => (
               <li key={wl.id} onClick={() => handleWatchlistChange(wl.id)}>
                 <a>{wl.name || "Unnamed Watchlist"}</a>
               </li>
             ))}
+            <li className="text-accent">
+              <a disabled>Create a new Watchlist</a>
+            </li>
           </ul>
         </div>
 
