@@ -2,7 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios"; // Assuming you're using axios for HTTP requests
 import AddableMiniSearchBar from "./AddableMiniSearchBar";
 
-export default function AddStocksModal({ isOpen, onClose, watchlistId }) {
+export default function AddStocksModal({
+  isOpen,
+  onClose,
+  watchlistId,
+  refetch,
+}) {
   const [selectedSymbols, setSelectedSymbols] = useState([]);
   const [suggestions, setSuggestions] = useState([]); // Add this line
   const dialogRef = useRef(null);
@@ -33,6 +38,8 @@ export default function AddStocksModal({ isOpen, onClose, watchlistId }) {
     } catch (error) {
       console.error("Error saving symbols:", error);
     }
+
+    refetch();
     console.log("The payload ", payload);
 
     console.log("Selected Symbols:", selectedSymbols);

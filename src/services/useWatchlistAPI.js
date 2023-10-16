@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 function useWatchlistAPI(endpoint = "") {
   // Default to an empty string if no endpoint is provided
+  const queryClient = useQueryClient();
 
   const fetchWatchlist = async () => {
     const response = await axios.get(
@@ -17,7 +17,7 @@ function useWatchlistAPI(endpoint = "") {
   };
 
   // Use the endpoint in the query key
-  const { data, error, isLoading, isError } = useQuery(
+  const { data, error, isLoading, isError, refetch } = useQuery(
     ["watchlist", endpoint],
     fetchWatchlist
   );
@@ -27,6 +27,7 @@ function useWatchlistAPI(endpoint = "") {
     error,
     isLoading,
     isError,
+    refetch, // Expose the refetch method
   };
 }
 

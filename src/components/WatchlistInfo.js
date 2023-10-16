@@ -6,13 +6,16 @@ import { useNavigate } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import { useState, useEffect } from "react";
 import AddStocksModal from "./AddStocksModal";
+import EditStocksModal from "./EditStocksModal";
 
 export function WatchlistInfo() {
-  const { watchlist, isLoading, isError } = useWatchlistAPI("my-watchlist");
+  const { watchlist, isLoading, isError, refetch } =
+    useWatchlistAPI("my-watchlist");
   const [selectedWatchlistId, setSelectedWatchlistId] = useState(""); // Initialize to an empty string
   const [dropdownVisible, setDropdownVisible] = useState(false); // State to manage dropdown visibility
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
 
   const handleWatchlistChange = (watchlistId) => {
     if (!watchlistId) return;
@@ -120,7 +123,7 @@ export function WatchlistInfo() {
               <a onClick={() => setModalOpen(true)}>Add Symbols</a>
             </li>
             <li>
-              <a>Edit Symbols</a>
+              <a onClick={() => setEditModalOpen(true)}>Edit Symbols</a>
             </li>
             <li>
               <a>Rename List</a>
@@ -135,6 +138,14 @@ export function WatchlistInfo() {
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         watchlistId={selectedWatchlist?.id}
+        refetch={refetch}
+      />
+      <EditStocksModal
+        isOpen={isEditModalOpen}
+        onClose={() => setEditModalOpen(false)}
+        watchlistId={selectedWatchlist?.id}
+        selectedWatchlist={selectedWatchlist}
+        refetch={refetch}
       />
 
       {selectedWatchlist &&
