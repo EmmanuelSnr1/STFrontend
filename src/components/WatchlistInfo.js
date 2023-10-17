@@ -7,6 +7,8 @@ import NumberFormat from "react-number-format";
 import { useState, useEffect } from "react";
 import AddStocksModal from "./AddStocksModal";
 import EditStocksModal from "./EditStocksModal";
+import EditWatchlistModal from "./EditWatchlistModal";
+import AddWatchlistsModal from "./AddWatchlistsModal";
 
 export function WatchlistInfo() {
   const { watchlist, isLoading, isError, refetch } =
@@ -16,6 +18,8 @@ export function WatchlistInfo() {
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isEditWatchlistModalOpen, setEditWatchlistModalOpen] = useState(false);
+  const [isAddWatchlistModalOpen, setAddWatchlistModalOpen] = useState(false);
 
   const handleWatchlistChange = (watchlistId) => {
     if (!watchlistId) return;
@@ -106,7 +110,9 @@ export function WatchlistInfo() {
               </li>
             ))}
             <li className="text-accent">
-              <a disabled>Create a new Watchlist</a>
+              <a onClick={() => setAddWatchlistModalOpen(true)}>
+                Create a new Watchlist
+              </a>
             </li>
           </ul>
         </div>
@@ -126,7 +132,7 @@ export function WatchlistInfo() {
               <a onClick={() => setEditModalOpen(true)}>Edit Symbols</a>
             </li>
             <li>
-              <a>Rename List</a>
+              <a onClick={() => setEditWatchlistModalOpen(true)}>Rename List</a>
             </li>
             <li>
               <a>Sort by...</a>
@@ -145,6 +151,17 @@ export function WatchlistInfo() {
         onClose={() => setEditModalOpen(false)}
         watchlistId={selectedWatchlist?.id}
         selectedWatchlist={selectedWatchlist}
+        refetch={refetch}
+      />
+      <EditWatchlistModal
+        isOpen={isEditWatchlistModalOpen}
+        onClose={() => setEditWatchlistModalOpen(false)}
+        watchlistDetails={selectedWatchlist}
+        refetch={refetch}
+      />
+      <AddWatchlistsModal
+        isOpen={isAddWatchlistModalOpen}
+        onClose={() => setAddWatchlistModalOpen(false)}
         refetch={refetch}
       />
 

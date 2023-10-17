@@ -15,6 +15,7 @@ module.exports = {
       lightYellow: "#f5fc98",
       white: "#ffffff",
       stocxtunered: "#ed6868",
+      stmodal: "#142020",
     },
     extend: {
       spacing: {

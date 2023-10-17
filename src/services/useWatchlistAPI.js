@@ -1,9 +1,8 @@
 import axios from "axios";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 
 function useWatchlistAPI(endpoint = "") {
   // Default to an empty string if no endpoint is provided
-  const queryClient = useQueryClient();
 
   const fetchWatchlist = async () => {
     const response = await axios.get(

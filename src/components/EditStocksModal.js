@@ -50,7 +50,7 @@ export default function EditStocksModal({
 
   return (
     <dialog ref={dialogRef} className="modal">
-      <div className="modal-box">
+      <div className="modal-box bg-stmodal">
         <button
           onClick={onClose}
           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -60,7 +60,7 @@ export default function EditStocksModal({
         <h3 className="font-bold text-lg">Edit Symbols</h3>
         <br></br>
         {/* Render the list of stocks here with a "Delete/Undelete" button next to each stock */}
-        {selectedWatchlist?.stocks.map((stock) => (
+        {selectedWatchlist?.stocks?.map((stock) => (
           <div key={stock?.id} className="flex justify-between items-center">
             <span>{stock?.symbol}</span>
             <span>{stock?.name}</span>
