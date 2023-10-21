@@ -62,7 +62,7 @@ export default function AddStocksModal({
           onSuggestionsChange={setSuggestions} // Pass the setSuggestions function
         />
         <div className="modal-action">
-          <button className="btn" onClick={handleSave}>
+          <button className="btn bg-dark-teal" onClick={handleSave}>
             Save
           </button>
         </div>

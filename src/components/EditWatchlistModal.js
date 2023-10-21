@@ -72,7 +72,7 @@ export default function EditWatchlistModal({
         </div>
 
         <div className="modal-action">
-          <button className="btn" onClick={handleSave}>
+          <button className="btn bg-dark-teal" onClick={handleSave}>
             Save
           </button>
         </div>

@@ -3,6 +3,7 @@ import { YourWatchlist } from "../components/YourWatchlist";
 import { AnalyticsCanvas } from "../components/AnalyticsCanvas";
 import { WatchlistInfo } from "../components/WatchlistInfo";
 import { Watchlist } from "../components/Watchlist";
+import { NewsFeed } from "../components/NewsFeed";
 
 export default function AnalyticsPage() {
   return (
@@ -15,6 +16,7 @@ export default function AnalyticsPage() {
             <Watchlist spanSize="md:col-span-3" />
             <Watchlist spanSize="md:col-span-2" />
             <Watchlist spanSize="md:col-span-1" />
+            <NewsFeed />
           </div>
         </div>
       </div>
