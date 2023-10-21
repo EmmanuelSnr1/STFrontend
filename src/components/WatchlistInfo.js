@@ -94,27 +94,27 @@ export function WatchlistInfo() {
     <div className="px-8 space-y-4 mb-16 pb-8 rounded-xl shadow-lg shadow-accent/20 max-w-full h-96 overflow-x-hidden y-4 bg-gradient-to-b from-darker-teal to-black">
       <div className="flex justify-between pt-8">
         <div className="font-bold text-base">
-          {selectedWatchlist ? selectedWatchlist.name : "Your WatchList"}
-        </div>
-        <div className="space-x-2 dropdown dropdown-bottom dropdown-end">
-          <button tabIndex={0} className="btn btn-circle btn-sm btn-primary">
-            <RxDropdownMenu />
-          </button>
-          <ul
-            tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            {watchlist.map((wl) => (
-              <li key={wl.id} onClick={() => handleWatchlistChange(wl.id)}>
-                <a>{wl.name || "Unnamed Watchlist"}</a>
+          {selectedWatchlist ? selectedWatchlist.name + "  " : "Your WatchList"}
+          <div className="space-x-2 dropdown dropdown-bottom">
+            <button tabIndex={0} className="btn btn-circle btn-sm btn-primary">
+              <RxDropdownMenu />
+            </button>
+            <ul
+              tabIndex={0}
+              className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              {watchlist.map((wl) => (
+                <li key={wl.id} onClick={() => handleWatchlistChange(wl.id)}>
+                  <a>{wl.name + "  " || "Unnamed Watchlist"}</a>
+                </li>
+              ))}
+              <li className="text-accent">
+                <a onClick={() => setAddWatchlistModalOpen(true)}>
+                  Create a new Watchlist
+                </a>
               </li>
-            ))}
-            <li className="text-accent">
-              <a onClick={() => setAddWatchlistModalOpen(true)}>
-                Create a new Watchlist
-              </a>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </div>
 
         <div className="space-x-2 dropdown dropdown-bottom dropdown-end">
