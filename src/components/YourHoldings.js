@@ -3,11 +3,13 @@ import { FaPlus } from "react-icons/fa";
 import AddPortfolioModal from "./AddPortfolioModal";
 import { useState, useEffect } from "react";
 import useWatchlistAPI from "../services/useWatchlistAPI";
+import AddTransactionModal from "./AddTransactionModal";
 
 export function YourHoldings() {
   const { portfolio, isLoading, isError, refetch } =
     useWatchlistAPI("my-watchlist");
-  const [isAddPortfolioModalOpen, setAddPortfolioModalOpen] = useState(false);
+  const [isAddTransactionModalOpen, setAddTransactionModalOpen] =
+    useState(false);
 
   return (
     <div className="md:col-span-4">
@@ -31,7 +33,7 @@ export function YourHoldings() {
                   className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <a onClick={() => setAddPortfolioModalOpen(true)}>
+                    <a onClick={() => setAddTransactionModalOpen(true)}>
                       {" "}
                       Add Transaction{" "}
                     </a>
@@ -59,9 +61,9 @@ export function YourHoldings() {
             </div>
           </div>
 
-          <AddPortfolioModal
-            isOpen={isAddPortfolioModalOpen}
-            onClose={() => setAddPortfolioModalOpen(false)}
+          <AddTransactionModal
+            isOpen={isAddTransactionModalOpen}
+            onClose={() => setAddTransactionModalOpen(false)}
             refetch={refetch}
           />
 
