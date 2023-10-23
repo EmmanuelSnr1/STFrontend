@@ -33,7 +33,7 @@ function AddPortfolioModal({ isOpen, onClose, refetch }) {
         >
           ✕
         </button>
-        <h3 className="font-bold text-lg">Add Portfolio</h3>
+        <h3 className="font-bold text-lg">Add New Portfolio</h3>
         <br />
 
         <div className="form-control">

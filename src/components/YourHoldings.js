@@ -20,7 +20,7 @@ export function YourHoldings() {
         <div className="p-4 md:p-8">
           <div className="flex justify-between">
             <div className="font-bold text-base">
-              Your Holdings{" "}
+              Portfolio X 's Holdings{" "}
               <div className="space-x-2 dropdown dropdown-bottom dropdown-end">
                 <button
                   tabIndex={0}
