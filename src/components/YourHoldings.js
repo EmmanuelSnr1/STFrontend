@@ -42,7 +42,7 @@ export function YourHoldings() {
                     <a>View Transactions</a>
                   </li>
                   <li>
-                    <a>Add Notes to Transactions +</a>
+                    <a>Add Notes </a>
                   </li>
                   <li>
                     <a>View Notes </a>
