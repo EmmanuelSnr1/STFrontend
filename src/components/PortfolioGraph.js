@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import useWatchlistAPI from "../services/useWatchlistAPI";
 import { FaPlus } from "react-icons/fa";
 
+//Portfolio graph.
 export function PortfolioGraph() {
   const { portfolio, isLoading, isError, refetch } =
     useWatchlistAPI("my-watchlist");

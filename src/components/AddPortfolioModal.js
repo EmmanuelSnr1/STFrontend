@@ -17,7 +17,6 @@ function AddPortfolioModal({ isOpen, onClose, refetch }) {
         withCredentials: true,
       });
       onClose(); // Close the modal after successful creation
-      // Optionally, you can also refetch the portfolio data or update the local state to reflect the changes
     } catch (error) {
       console.error("Error creating portfolio:", error);
     }
