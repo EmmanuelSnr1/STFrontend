@@ -55,3 +55,5 @@ https://daisyui.com/components/
 
 React Icons
 https://react-icons.github.io/react-icons/icons?name=fa
+todo: create watchlist hook 
+correctly create portfolios using front end dev 
