@@ -11,12 +11,24 @@ export function PortfolioGraph() {
   const [isAddPortfolioModalOpen, setAddPortfolioModalOpen] = useState(false);
   const [selectedPortfolioId, setSelectedPortfolioId] = useState(""); // Initialize to an empty string
 
+  const handlePortfolioChange = (portfolioId) => {
+    if (!portfolioId) return;
+    setSelectedPortfolioId(portfolioId);
+    // Store the selected watchlist ID in localStorage
+    localStorage.setItem("selectedPortfolioId", portfolioId.toString());
+
+    // Close the dropdown
+    const dropdownDialog = document.getElementById("your_dropdown_dialog_id");
+    if (dropdownDialog) {
+      dropdownDialog.removeAttribute("open");
+    }
+  };
 
   const selectedPortfolio = portfolio
     ? portfolio.find((wl) => wl.id === selectedPortfolioId)
     : null;
   console.log("the portfolio data", portfolio);
-  
+
   return (
     <div
       id="portfolio-graph"
@@ -25,7 +37,7 @@ export function PortfolioGraph() {
       <div className="p-4 md:p-8">
         <div className="flex justify-between">
           <div className="font-bold text-base">
-          {selectedPortfolio ? selectedPortfolio.name + "  " : "My Portfolio"} {" "}
+            {selectedPortfolio ? selectedPortfolio.name + "  " : "My Portfolio"}{" "}
             <div className="space-x-2 dropdown dropdown-bottom dropdown-end">
               <button
                 tabIndex={0}
@@ -43,9 +55,18 @@ export function PortfolioGraph() {
                     Add New Portfolio +{" "}
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a>Edit Symbols</a>
-                </li>
+                </li> */}
+                {portfolio &&
+                  portfolio.map((pf) => (
+                    <li
+                      key={pf.id}
+                      onClick={() => handlePortfolioChange(pf.id)}
+                    >
+                      <a>{pf.name + "  " || "Unnamed Watchlist"}</a>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
