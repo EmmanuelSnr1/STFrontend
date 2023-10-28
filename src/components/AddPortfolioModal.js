@@ -4,6 +4,7 @@ import axios from "axios";
 function AddPortfolioModal({ isOpen, onClose, refetch }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  
 
   const handleSave = async () => {
     const payload = {
@@ -13,7 +14,7 @@ function AddPortfolioModal({ isOpen, onClose, refetch }) {
     };
 
     try {
-      await axios.post("http://localhost:8090/api/portfolio", payload, {
+      await axios.post("http://localhost:8090/api/portfolios", payload, {
         withCredentials: true,
       });
       onClose(); // Close the modal after successful creation

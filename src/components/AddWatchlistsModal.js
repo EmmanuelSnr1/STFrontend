@@ -9,7 +9,6 @@ function AddWatchlistsModal({ isOpen, onClose, refetch }) {
     const payload = {
       name: name,
       description: description,
-      // You don't need to set the 'user' field here since it's set on the server-side
     };
 
     try {

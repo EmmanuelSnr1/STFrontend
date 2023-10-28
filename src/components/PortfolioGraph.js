@@ -1,14 +1,22 @@
 import { MyPortfolioChartEmpty } from "../components/MyPortfolioChartEmpty";
 import AddPortfolioModal from "./AddPortfolioModal";
 import { useState, useEffect } from "react";
-import useWatchlistAPI from "../services/useWatchlistAPI";
 import { FaPlus } from "react-icons/fa";
+import usePortfolioAPI from "../services/usePortfolioAPI";
 
 //Portfolio graph.
 export function PortfolioGraph() {
   const { portfolio, isLoading, isError, refetch } =
-    useWatchlistAPI("my-watchlist");
+    usePortfolioAPI("my-portfolio");
   const [isAddPortfolioModalOpen, setAddPortfolioModalOpen] = useState(false);
+  const [selectedPortfolioId, setSelectedPortfolioId] = useState(""); // Initialize to an empty string
+
+
+  const selectedPortfolio = portfolio
+    ? portfolio.find((wl) => wl.id === selectedPortfolioId)
+    : null;
+  console.log("the portfolio data", portfolio);
+  
   return (
     <div
       id="portfolio-graph"
@@ -17,7 +25,7 @@ export function PortfolioGraph() {
       <div className="p-4 md:p-8">
         <div className="flex justify-between">
           <div className="font-bold text-base">
-            My Portfolio{" "}
+          {selectedPortfolio ? selectedPortfolio.name + "  " : "My Portfolio"} {" "}
             <div className="space-x-2 dropdown dropdown-bottom dropdown-end">
               <button
                 tabIndex={0}

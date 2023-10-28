@@ -8,7 +8,7 @@ export function NewsFeed() {
 
   //   const newsArray = newsData ? Object.values(newsData) : [];
 
-  console.log("The news Array ", newsData);
+  // console.log("The news Array ", newsData);
   return (
     <div className="md:col-span-2">
       <div className="flex flex-col">
