@@ -6,7 +6,7 @@ import useStockAPI from "../services/useStockAPI"; // Make sure to adjust the pa
 export function NewsFeed() {
   const { data: newsData, error, loading } = useStockAPI("/market-news");
 
-  const newsArray = newsData?.body;
+  const newsArray = newsData?.body || [];
 
   console.log("The news Array ", newsArray);
   return (
