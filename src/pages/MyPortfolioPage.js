@@ -2,6 +2,7 @@ import { HoldingsTotal } from "../components/HoldingsTotal";
 import { YourWatchlist } from "../components/YourWatchlist";
 import { YourHoldings } from "../components/YourHoldings";
 import { NewsFeed } from "../components/NewsFeed";
+import { PortfolioProvider } from "../context/PortfolioContext";
 
 export default function MyPortfolioPage() {
   const primaryXAxis = {
@@ -25,7 +26,9 @@ export default function MyPortfolioPage() {
       <div className="flex flex-col py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-6 gap-12">
-            <HoldingsTotal />
+            <PortfolioProvider>
+              <HoldingsTotal />
+            </PortfolioProvider>
             <YourWatchlist />
             <YourHoldings />
             <NewsFeed />

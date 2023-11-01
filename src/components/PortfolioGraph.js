@@ -25,7 +25,7 @@ export function PortfolioGraph() {
   };
 
   const selectedPortfolio = portfolio
-    ? portfolio.find((wl) => wl.id === selectedPortfolioId)
+    ? portfolio.find((pf) => pf.id === selectedPortfolioId)
     : null;
   console.log("the portfolio data", portfolio);
 
