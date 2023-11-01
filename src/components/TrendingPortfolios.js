@@ -1,13 +1,12 @@
-import {FaChevronLeft, FaChevronRight} from "react-icons/fa";
-import NumberFormat from 'react-number-format';
-import {useFetch} from "../services/useFetch";
-import {useNavigate} from 'react-router-dom';
-import useStockAPI from '../services/useStockAPI'; // Make sure to adjust the path to your hook
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import NumberFormat from "react-number-format";
+import { useFetch } from "../services/useFetch";
+import { useNavigate } from "react-router-dom";
+import useStockAPI from "../services/useStockAPI"; // Make sure to adjust the path to your hook
 
 // import React from 'react';
 
-
-// This component sources data from other parts of the API and implements them in other parts of the code. 
+// This component sources data from other parts of the API and implements them in other parts of the code.
 
 // Helper Function: renderTableRow
 // This function is used to render a single row in a table, based on the data passed into it:
@@ -38,87 +37,127 @@ import useStockAPI from '../services/useStockAPI'; // Make sure to adjust the pa
 // The styles and classes used (like btn, btn-circle, btn-sm, etc.) suggest that the app likely uses a utility-first CSS framework like Tailwind CSS.
 
 function renderTableRow(data, navigate) {
-    function navigateToDetails() {
-        navigate('/stock/' + data.symbol)
-    }
+  function navigateToDetails() {
+    navigate("/stock/" + data.symbol);
+  }
 
-    return (
-        <tr onClick={() => navigateToDetails()} className="hover:bg-primary cursor-pointer" key={data.symbol}>
-            <td className='bg-transparent text-accent'>{data.symbol}</td>
-            <td className='bg-transparent'>{data.shortName}</td>
-            <td className={'bg-transparent text-neutral'}>
-                <NumberFormat value={data.regularMarketPreviousClose} displayType={'text'}
-                              thousandSeparator={true} prefix={'$'}/>
-            </td>
-            <td className='bg-transparent text-info'>
-                <NumberFormat value={data.regularMarketPrice} displayType={'text'} 
-                              thousandSeparator={true} prefix={'$'}/>
-            </td>
-            <td className='bg-transparent text-neutral'>{data.regularMarketVolume}</td>
-            <td className='bg-transparent'>
-                <NumberFormat value={data.regularMarketOpen} displayType={'text'}
-                              thousandSeparator={true} prefix={'$'}/>
-            </td>
-            <td className='bg-transparent'> 
-                <NumberFormat value={data.postMarketPrice} displayType={'text'}
-                              thousandSeparator={true} prefix={'$'}/>
-            </td>
-            <td className={data.regularMarketChangePercent > 0 
-                            ? 'bg-transparent text-green' 
-                            : 'bg-transparent text-pink-red'}>
-                {data.regularMarketChangePercent.toFixed(2)}
-            </td>
-        </tr>
-    )
+  return (
+    <tr
+      onClick={() => navigateToDetails()}
+      className="hover:bg-primary cursor-pointer"
+      key={data.symbol}
+    >
+      <td className="bg-transparent text-accent">{data.symbol}</td>
+      <td className="bg-transparent">{data.shortName}</td>
+      <td className={"bg-transparent text-neutral"}>
+        <NumberFormat
+          value={data.regularMarketPreviousClose}
+          displayType={"text"}
+          thousandSeparator={true}
+          prefix={"$"}
+        />
+      </td>
+      <td className="bg-transparent text-info">
+        <NumberFormat
+          value={data.regularMarketPrice}
+          displayType={"text"}
+          thousandSeparator={true}
+          prefix={"$"}
+        />
+      </td>
+      <td className="bg-transparent text-neutral">
+        {data.regularMarketVolume}
+      </td>
+      <td className="bg-transparent">
+        <NumberFormat
+          value={data.regularMarketOpen}
+          displayType={"text"}
+          thousandSeparator={true}
+          prefix={"$"}
+        />
+      </td>
+      <td className="bg-transparent">
+        <NumberFormat
+          value={data.postMarketPrice}
+          displayType={"text"}
+          thousandSeparator={true}
+          prefix={"$"}
+        />
+      </td>
+      <td
+        className={
+          data.regularMarketChangePercent > 0
+            ? "bg-transparent text-green"
+            : "bg-transparent text-pink-red"
+        }
+      >
+        {data.regularMarketChangePercent.toFixed(2)}
+      </td>
+    </tr>
+  );
 }
 
-export function TrendingPortfolios({title, url}) {
-    const navigate = useNavigate();
+export function TrendingPortfolios({ title, url }) {
+  const navigate = useNavigate();
 
-    const {data: response, error, loading} = useStockAPI(url); // Replaced useFetch with useStockAPI
+  const { data: response, error, loading } = useStockAPI(url); // Replaced useFetch with useStockAPI
 
-    // Accessing the quotes key from the response
-    const gainersList = response?.quotes || [];
+  // Accessing the quotes key from the response
+  const gainersList = response?.body || [];
 
-    if (error) throw error;
+  console.log("The gainers list", gainersList);
 
-    if (loading) {
-        return <progress className="progress w-56"/>
-    }
+  if (error) throw error;
 
-    
+  if (loading) {
+    return <progress className="progress w-56" />;
+  }
 
-    return (
-        <div className='px-8 space-y-4 mb-16 pb-8 rounded-xl shadow-lg max-w-full overflow-x-scroll y-4 w bg-gradient-to-b from-darker-teal to-black'>
-            <div className='flex justify-between pt-8'>
-                <div className='font-bold text-base'>{title}</div>
-                <div className='space-x-2 hidden'>
-                    <button className='btn btn-circle btn-sm btn-primary'>
-                        <FaChevronLeft/>
-                    </button>
-                    <button className='btn btn-circle btn-sm btn-primary'>
-                        <FaChevronRight/>
-                    </button>
-                </div>
-            </div>
-
-            <table className="table table-fixed min-w-full max-w-screen-lg bg-transparent select-none ">
-                <thead>
-                <tr className=''>
-                    <th className='bg-transparent capitalize w-32 text-neutral/80'>Symbol</th>
-                    <th className='bg-transparent capitalize w-32 text-neutral/80'>Company</th>
-                    <th className='bg-transparent capitalize text-neutral/80'>Previous Close</th>
-                    <th className='bg-transparent capitalize text-neutral/80'>Latest Price</th>
-                    <th className='bg-transparent capitalize text-neutral/80'>Latest Volume</th>
-                    <th className='bg-transparent capitalize text-neutral/80'>Open</th>
-                    <th className='bg-transparent capitalize text-neutral/80 '>Close</th>
-                    <th className='bg-transparent capitalize text-neutral/80'>% Gain/Loss</th>
-                </tr>
-                </thead>
-                <tbody>
-                {gainersList.map(symbol => renderTableRow(symbol, navigate))}
-                </tbody>
-            </table>
+  return (
+    <div className="px-8 space-y-4 mb-16 pb-8 rounded-xl shadow-lg max-w-full overflow-x-scroll y-4 w bg-gradient-to-b from-darker-teal to-black">
+      <div className="flex justify-between pt-8">
+        <div className="font-bold text-base">{title}</div>
+        <div className="space-x-2 hidden">
+          <button className="btn btn-circle btn-sm btn-primary">
+            <FaChevronLeft />
+          </button>
+          <button className="btn btn-circle btn-sm btn-primary">
+            <FaChevronRight />
+          </button>
         </div>
-    )
+      </div>
+
+      <table className="table table-fixed min-w-full max-w-screen-lg bg-transparent select-none ">
+        <thead>
+          <tr className="">
+            <th className="bg-transparent capitalize w-32 text-neutral/80">
+              Symbol
+            </th>
+            <th className="bg-transparent capitalize w-32 text-neutral/80">
+              Company
+            </th>
+            <th className="bg-transparent capitalize text-neutral/80">
+              Previous Close
+            </th>
+            <th className="bg-transparent capitalize text-neutral/80">
+              Latest Price
+            </th>
+            <th className="bg-transparent capitalize text-neutral/80">
+              Latest Volume
+            </th>
+            <th className="bg-transparent capitalize text-neutral/80">Open</th>
+            <th className="bg-transparent capitalize text-neutral/80 ">
+              Close
+            </th>
+            <th className="bg-transparent capitalize text-neutral/80">
+              % Gain/Loss
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {gainersList.map((symbol) => renderTableRow(symbol, navigate))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
