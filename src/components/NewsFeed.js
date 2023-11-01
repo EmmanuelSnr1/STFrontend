@@ -6,9 +6,9 @@ import useStockAPI from "../services/useStockAPI"; // Make sure to adjust the pa
 export function NewsFeed() {
   const { data: newsData, error, loading } = useStockAPI("/market-news");
 
-  //   const newsArray = newsData ? Object.values(newsData) : [];
+  const newsArray = newsData?.body;
 
-  // console.log("The news Array ", newsData);
+  console.log("The news Array ", newsArray);
   return (
     <div className="md:col-span-2">
       <div className="flex flex-col">
@@ -22,10 +22,10 @@ export function NewsFeed() {
             </div>
           </div>
 
-          {newsData?.length === 0 ? (
+          {newsArray?.length === 0 ? (
             <NewsFeedEmpty />
           ) : (
-            newsData?.slice(1, 20).map((newsItem) => (
+            newsArray?.slice(1, 20).map((newsItem) => (
               <a
                 key={newsItem?.guid}
                 href={newsItem?.link}
