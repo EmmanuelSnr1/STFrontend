@@ -28,9 +28,9 @@ export default function MyPortfolioPage() {
           <div className="grid md:grid-cols-6 gap-12">
             <PortfolioProvider>
               <HoldingsTotal />
+              <YourWatchlist />
+              <YourHoldings />
             </PortfolioProvider>
-            <YourWatchlist />
-            <YourHoldings />
             <NewsFeed />
           </div>
         </div>
