@@ -6,7 +6,7 @@ const PortfolioContext = createContext();
 export const usePortfolio = () => useContext(PortfolioContext);
 
 export const PortfolioProvider = ({ children }) => {
-  const [selectedPortfolio, setSelectedPortfolio] = useState(null);
+  const [selectedPortfolio, setSelectedPortfolio] = useState();
   const { portfolio, isLoading, isError, refetch } =
     usePortfolioAPI("my-portfolio");
 
