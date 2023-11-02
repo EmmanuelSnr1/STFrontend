@@ -2,21 +2,18 @@ import { MyPortfolioChartEmpty } from "../components/MyPortfolioChartEmpty";
 import AddPortfolioModal from "./AddPortfolioModal";
 import { useState, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
-import usePortfolioAPI from "../services/usePortfolioAPI";
+import { usePortfolio } from "../context/PortfolioContext"; // Import the context hook
 
 //Portfolio graph.
 export function PortfolioGraph() {
-  const { portfolio, isLoading, isError, refetch } =
-    usePortfolioAPI("my-portfolio");
+  const { selectedPortfolio, portfolio, selectPortfolio, refetch } =
+    usePortfolio();
+
   const [isAddPortfolioModalOpen, setAddPortfolioModalOpen] = useState(false);
-  const [selectedPortfolioId, setSelectedPortfolioId] = useState(""); // Initialize to an empty string
 
   const handlePortfolioChange = (portfolioId) => {
     if (!portfolioId) return;
-    setSelectedPortfolioId(portfolioId);
-    // Store the selected watchlist ID in localStorage
-    localStorage.setItem("selectedPortfolioId", portfolioId.toString());
-
+    selectPortfolio(portfolioId);
     // Close the dropdown
     const dropdownDialog = document.getElementById("your_dropdown_dialog_id");
     if (dropdownDialog) {
@@ -24,10 +21,7 @@ export function PortfolioGraph() {
     }
   };
 
-  const selectedPortfolio = portfolio
-    ? portfolio.find((pf) => pf.id === selectedPortfolioId)
-    : null;
-  console.log("the portfolio data", portfolio);
+  console.log("portfolios ", portfolio);
 
   return (
     <div

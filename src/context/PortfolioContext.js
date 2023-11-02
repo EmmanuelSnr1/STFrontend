@@ -7,18 +7,14 @@ export const usePortfolio = () => useContext(PortfolioContext);
 
 export const PortfolioProvider = ({ children }) => {
   const [selectedPortfolio, setSelectedPortfolio] = useState(null);
-  const {
-    data: portfolios,
-    isLoading,
-    isError,
-    refetch,
-  } = usePortfolioAPI("my-portfolio");
+  const { portfolio, isLoading, isError, refetch } =
+    usePortfolioAPI("my-portfolio");
 
   const selectPortfolio = (portfolioId) => {
     // If portfolios are not yet loaded, we can't select one
-    if (!portfolios) return;
+    if (!portfolio) return;
 
-    const selected = portfolios.find((p) => p.id === portfolioId);
+    const selected = portfolio.find((p) => p.id === portfolioId);
     setSelectedPortfolio(selected);
   };
 
@@ -26,13 +22,13 @@ export const PortfolioProvider = ({ children }) => {
   const value = useMemo(
     () => ({
       selectedPortfolio,
-      portfolios,
+      portfolio,
       isLoading,
       isError,
       selectPortfolio,
       refetch,
     }),
-    [selectedPortfolio, portfolios, isLoading, isError]
+    [selectedPortfolio, portfolio, isLoading, isError]
   );
 
   return (
