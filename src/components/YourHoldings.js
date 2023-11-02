@@ -1,16 +1,17 @@
+import React from "react";
 import { YourHoldingsEmpty } from "../components/YourHoldingsEmpty";
 import { FaPlus } from "react-icons/fa";
 import AddPortfolioModal from "./AddPortfolioModal";
-import { useState, useEffect } from "react";
-import useWatchlistAPI from "../services/useWatchlistAPI";
+import { useState } from "react";
 import AddTransactionModal from "./AddTransactionModal";
+import { usePortfolio } from "../context/PortfolioContext"; // Import the context hook
 
 export function YourHoldings() {
-  const { portfolio, isLoading, isError, refetch } =
-    useWatchlistAPI("my-watchlist");
+  const { selectedPortfolio, refetch } = usePortfolio(); // Use the context hook
   const [isAddTransactionModalOpen, setAddTransactionModalOpen] =
     useState(false);
 
+  console.log("selected port", selectedPortfolio);
   return (
     <div className="md:col-span-4">
       <div
@@ -20,7 +21,9 @@ export function YourHoldings() {
         <div className="p-4 md:p-8">
           <div className="flex justify-between">
             <div className="font-bold text-base">
-              Portfolio X 's Holdings{" "}
+              {selectedPortfolio
+                ? `${selectedPortfolio?.name}'s Holdings`
+                : "Select a Portfolio"}{" "}
               <div className="space-x-2 dropdown dropdown-bottom dropdown-end">
                 <button
                   tabIndex={0}
@@ -64,7 +67,8 @@ export function YourHoldings() {
           <AddTransactionModal
             isOpen={isAddTransactionModalOpen}
             onClose={() => setAddTransactionModalOpen(false)}
-            refetch={refetch}
+            portfolioId={selectedPortfolio?.id}
+            refetch={refetch} // Make sure your modal knows how to refetch data if needed
           />
 
           <YourHoldingsEmpty />

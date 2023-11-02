@@ -25,15 +25,17 @@ function AddTransactionModal({ isOpen, onClose, refetch, portfolioId }) {
       accountInfo: accountInfo,
       // Add other fields as needed...
     };
+    console.log("The payload ", payload);
 
     try {
       await axios.post(
-        `http://localhost:8090/api/portfolio/${portfolioId}/transactions`,
+        `http://localhost:8090/api/portfolios/${portfolioId}/transactions`,
         [payload],
         {
           withCredentials: true,
         }
       );
+      console.log("Transaction Added Successfly. ");
       onClose();
       refetch();
     } catch (error) {
