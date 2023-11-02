@@ -11,7 +11,7 @@ function useWatchlistAPI(endpoint = "") {
         withCredentials: true,
       }
     );
-    console.log("The Data ", response.data);
+    // console.log("The Data ", response.data);
     return response.data;
   };
 
