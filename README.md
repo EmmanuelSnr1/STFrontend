@@ -55,3 +55,6 @@ https://daisyui.com/components/
 
 React Icons
 https://react-icons.github.io/react-icons/icons?name=fa
+
+Tailwind Charting.
+https://tw-elements.com/docs/standard/data/charts/
