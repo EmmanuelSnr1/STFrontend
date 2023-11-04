@@ -12,7 +12,7 @@ export function NewsFeed() {
   return (
     <div className="md:col-span-2">
       <div className="flex flex-col">
-        <div className="px-8 space-y-4 mb-16 pb-8 rounded-xl shadow-lg shadow-accent/20 max-w-full h-80 overflow-x-hidden y-4 bg-gradient-to-b from-darker-teal to-black">
+        <div className="px-8 space-y-4 mb-16 pb-8 rounded-xl shadow-lg shadow-accent/20 max-w-full h-96 overflow-x-hidden y-4 bg-gradient-to-b from-darker-teal to-black">
           <div className="flex justify-between pt-8">
             <div className="font-bold text-base">News Feed</div>
             <div className="space-x-2">
@@ -31,7 +31,7 @@ export function NewsFeed() {
                 href={newsItem?.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="card lg:card-side bg-base-100 shadow-xl mb-4"
+                className="card bg-gradient-to-b from-darker-teal to-dark-teal lg:card-side bg-base-100 shadow-xl mb-4"
               >
                 <figure className="pl-2">
                   <img
@@ -40,7 +40,7 @@ export function NewsFeed() {
                     className="w-24 h-24 object-cover"
                   />
                 </figure>
-                <div className="card-body pl-2">
+                <div className="card-body pl-2 p-2">
                   <p className="text-xs text-green">
                     {new Date(newsItem?.pubDate).toLocaleDateString()}
                   </p>
