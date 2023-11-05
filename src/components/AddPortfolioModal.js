@@ -4,7 +4,6 @@ import axios from "axios";
 function AddPortfolioModal({ isOpen, onClose, refetch }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  
 
   const handleSave = async () => {
     const payload = {
@@ -26,7 +25,7 @@ function AddPortfolioModal({ isOpen, onClose, refetch }) {
 
   return (
     <dialog open={isOpen} className="modal">
-      <div className="modal-box bg-stmodal">
+      <div className="modal-box bg-gradient-to-b from-teal to-stmodal">
         <button
           onClick={onClose}
           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
