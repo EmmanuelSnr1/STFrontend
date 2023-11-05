@@ -78,6 +78,72 @@ export function YourHoldings() {
       profitLoss: 1388585.75,
       profitLossPercentage: -99.98097346725709,
     },
+    {
+      id: null,
+      stock: null,
+      symbol: "AAPL",
+      quantity: 20.0,
+      averagePrice: 2000.0,
+      cashValue: null,
+      currentValue: 164.4,
+      profitLoss: -39835.6,
+      profitLossPercentage: -99.589,
+    },
+    {
+      id: null,
+      stock: null,
+      symbol: "JXN",
+      quantity: 20.0,
+      averagePrice: 2000.0,
+      cashValue: null,
+      currentValue: 164.4,
+      profitLoss: -39835.6,
+      profitLossPercentage: -99.589,
+    },
+    {
+      id: null,
+      stock: null,
+      symbol: "F",
+      quantity: 25.0,
+      averagePrice: 55554.0,
+      cashValue: null,
+      currentValue: 264.25,
+      profitLoss: 1388585.75,
+      profitLossPercentage: -99.98097346725709,
+    },
+    {
+      id: null,
+      stock: null,
+      symbol: "AAPL",
+      quantity: 20.0,
+      averagePrice: 2000.0,
+      cashValue: null,
+      currentValue: 164.4,
+      profitLoss: -39835.6,
+      profitLossPercentage: -99.589,
+    },
+    {
+      id: null,
+      stock: null,
+      symbol: "JXN",
+      quantity: 20.0,
+      averagePrice: 2000.0,
+      cashValue: null,
+      currentValue: 164.4,
+      profitLoss: -39835.6,
+      profitLossPercentage: -99.589,
+    },
+    {
+      id: null,
+      stock: null,
+      symbol: "F",
+      quantity: 25.0,
+      averagePrice: 55554.0,
+      cashValue: null,
+      currentValue: 264.25,
+      profitLoss: 1388585.75,
+      profitLossPercentage: -99.98097346725709,
+    },
   ]);
 
   // Function to format numbers as currency
@@ -104,7 +170,7 @@ export function YourHoldings() {
     <div className="md:col-span-4">
       <div
         id="portfolio-graph"
-        className="rounded-xl shadow-lg shadow-accent/20  h-96 w-full  bg-gradient-to-b from-darker-teal to-black"
+        className="rounded-xl shadow-lg shadow-accent/20  h-96 w-full overflow-x-hidden bg-gradient-to-b from-darker-teal to-black"
       >
         <div className="p-4 md:p-8">
           <div className="flex justify-between">
@@ -146,9 +212,7 @@ export function YourHoldings() {
             </div>
 
             <div className="tabs">
-              <button className=" btn btn-primary btn-sm" disabled>
-                View All
-              </button>
+              <button className=" btn btn-primary btn-sm">View All</button>
             </div>
           </div>
 
@@ -161,7 +225,7 @@ export function YourHoldings() {
           <div className="md:col-span-4">
             {/* Check if holdings array is not empty */}
             {holdings && holdings.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 my-2">
+              <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-3 my-2">
                 {" "}
                 {/* Adjust the number of columns as needed */}
                 {holdings.map((holding) => (
@@ -172,8 +236,8 @@ export function YourHoldings() {
                     <div className="stat ">
                       <div className="stat-title text-accent">Symbol</div>
                       <div className="text-lg stat-value">{holding.symbol}</div>
-                      <div className="stat-desc">
-                        Shares: {holding.quantity}
+                      <div className="stat-desc text-info">
+                        {holding.quantity} Shares
                       </div>
                     </div>
                     <div className="stat p-2">

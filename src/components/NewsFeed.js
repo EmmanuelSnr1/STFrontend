@@ -31,7 +31,7 @@ export function NewsFeed() {
                 href={newsItem?.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="card bg-gradient-to-b from-darker-teal to-dark-teal lg:card-side bg-base-100 shadow-xl mb-4"
+                className="card bg-gradient-to-b from-black to-dark-teal lg:card-side bg-base-100 shadow-xl mb-4"
               >
                 <figure className="pl-2">
                   <img
