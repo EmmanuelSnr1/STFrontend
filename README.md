@@ -58,3 +58,15 @@ https://react-icons.github.io/react-icons/icons?name=fa
 
 Tailwind Charting.
 https://tw-elements.com/docs/standard/data/charts/
+
+# Tasks
+
+- Create detail pages for watchlists and portfolios
+- create different forms of displays for various details pages.
+  - view all transactions details page.
+  - view all portfolios details page.
+
+## Other pages to add when necessary
+
+- User Account management page
+- Upload photos to account.
