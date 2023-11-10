@@ -63,10 +63,14 @@ https://tw-elements.com/docs/standard/data/charts/
 
 - Create detail pages for watchlists and portfolios
 - create different forms of displays for various details pages.
+
   - view all transactions details page.
   - view all portfolios details page.
+
+- create a modal to view transactions
 
 ## Other pages to add when necessary
 
 - User Account management page
 - Upload photos to account.
+- Add some pop ups
