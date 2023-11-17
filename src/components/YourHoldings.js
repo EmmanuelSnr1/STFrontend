@@ -21,7 +21,7 @@ export function YourHoldings() {
       cashValue: null,
       currentValue: 5292.15,
       profitLoss: -828017.85,
-      profitLossPercentage: -99.3649242178781,
+      profitLossPercentage: 9.3649242178781,
     },
     {
       id: null,
