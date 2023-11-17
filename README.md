@@ -61,6 +61,7 @@ https://tw-elements.com/docs/standard/data/charts/
 
 # Tasks
 
+- test holdings fetch from API
 - Connect List of holdings in your holdings.js to real json output of API
 - Create detail pages for watchlists and portfolios
 - create different forms of displays for various details pages.
