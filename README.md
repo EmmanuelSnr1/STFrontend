@@ -76,3 +76,4 @@ https://tw-elements.com/docs/standard/data/charts/
 - User Account management page
 - Upload photos to account.
 - Add some pop ups
+- Right
