@@ -76,4 +76,4 @@ https://tw-elements.com/docs/standard/data/charts/
 - User Account management page
 - Upload photos to account.
 - Add some pop ups
-- Right
+- Look to creating a trello board for main tasks and put the link in here.
