@@ -77,3 +77,7 @@ https://tw-elements.com/docs/standard/data/charts/
 - Upload photos to account.
 - Add some pop ups
 - Look to creating a trello board for main tasks and put the link in here.
+
+Nice to have
+
+Create Mobile version.
