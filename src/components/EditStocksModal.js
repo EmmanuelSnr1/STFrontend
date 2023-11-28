@@ -50,7 +50,7 @@ export default function EditStocksModal({
 
   return (
     <dialog ref={dialogRef} className="modal">
-      <div className="modal-box bg-stmodal">
+      <div className="modal-box bg-gradient-to-b from-teal to-stmodal">
         <button
           onClick={onClose}
           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
