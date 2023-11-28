@@ -35,7 +35,7 @@ export function NewsFeed() {
               >
                 <figure className="pl-2">
                   <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNDQ2wE0xiW8CUSlXP5DCAjOQsYmoasGCBe5F3Y-yKXg&s"
+                    src="https://awlights.com/wp-content/uploads/sites/31/2017/05/placeholder-news.jpg"
                     alt="News Thumbnail"
                     className="w-24 h-24 object-cover"
                   />
