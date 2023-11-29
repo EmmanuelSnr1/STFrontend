@@ -65,9 +65,8 @@ https://tw-elements.com/docs/standard/data/charts/
 - Connect List of holdings in your holdings.js to real json output of API
 - Create detail pages for watchlists and portfolios
 - create different forms of displays for various details pages.
-
-  - view all transactions details page.
-  - view all portfolios details page.
+- view all transactions details page.
+- view all portfolios details page.
 
 - create a modal to view transactions
 
