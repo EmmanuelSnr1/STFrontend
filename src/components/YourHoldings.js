@@ -11,8 +11,13 @@ export function YourHoldings() {
   const { selectedPortfolio, refetch } = usePortfolio(); // Use the context hook
   const [isAddTransactionModalOpen, setAddTransactionModalOpen] =
     useState(false);
-  const { fetch, loadFetch, fetchError, refetchFetch } =
-    usePortfolioAPI("my-portfolio");
+
+  // Extract the ID from the selected portfolio
+  const selectedPortfolioId = selectedPortfolio ? selectedPortfolio.id : null;
+
+  const { portfolio, error, isLoading, isError } = usePortfolioAPI(
+    `${selectedPortfolioId}/holdings`
+  );
 
   const [holdings, setHoldings] = useState([
     {
@@ -103,6 +108,9 @@ export function YourHoldings() {
   };
 
   console.log("selected port", selectedPortfolio);
+  console.log("selected port id  ", selectedPortfolioId);
+  console.log("selected holdings ", portfolio);
+
   return (
     <div className="md:col-span-4">
       <div
@@ -161,11 +169,11 @@ export function YourHoldings() {
           />
           <div className="md:col-span-4">
             {/* Check if holdings array is not empty */}
-            {holdings && holdings.length > 0 ? (
+            {portfolio && portfolio.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-3 my-2">
                 {" "}
                 {/* Adjust the number of columns as needed */}
-                {holdings.map((holding) => (
+                {portfolio.map((holding) => (
                   <div
                     key={holding.symbol}
                     className="stats stats-vertical  bg-gradient-to-b from-darker-teal to-black lg:stats-horizontal shadow-lg shadow-accent/10"
