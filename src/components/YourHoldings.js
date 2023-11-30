@@ -5,11 +5,14 @@ import AddPortfolioModal from "./AddPortfolioModal";
 import { useState } from "react";
 import AddTransactionModal from "./AddTransactionModal";
 import { usePortfolio } from "../context/PortfolioContext"; // Import the context hook
+import usePortfolioAPI from "../services/usePortfolioAPI";
 
 export function YourHoldings() {
   const { selectedPortfolio, refetch } = usePortfolio(); // Use the context hook
   const [isAddTransactionModalOpen, setAddTransactionModalOpen] =
     useState(false);
+  const { fetch, loadFetch, fetchError, refetchFetch } =
+    usePortfolioAPI("my-portfolio");
 
   const [holdings, setHoldings] = useState([
     {
