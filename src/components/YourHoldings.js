@@ -19,6 +19,7 @@ export function YourHoldings() {
     `${selectedPortfolioId}/holdings`
   );
 
+  // might consider reverting.
   const holdings = portfolio;
   // const [holdings, setHoldings] = useState([
   //   {
