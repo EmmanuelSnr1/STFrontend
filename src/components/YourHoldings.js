@@ -19,6 +19,7 @@ export function YourHoldings() {
     `${selectedPortfolioId}/holdings`
   );
 
+  const holdings = portfolio;
   // const [holdings, setHoldings] = useState([
   //   {
   //     id: null,
@@ -169,11 +170,11 @@ export function YourHoldings() {
           />
           <div className="md:col-span-4">
             {/* Check if holdings array is not empty */}
-            {portfolio && portfolio.length > 0 ? (
+            {holdings && holdings.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-3 my-2">
                 {" "}
                 {/* Adjust the number of columns as needed */}
-                {portfolio.map((holding) => (
+                {holdings.map((holding) => (
                   <div
                     key={holding.symbol}
                     className="stats stats-vertical  bg-gradient-to-b from-darker-teal to-black lg:stats-horizontal shadow-lg shadow-accent/10"
